@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Ubuntu 编译edb debugger</title>
+      <link href="/2019/12/06/edb-debugger/"/>
+      <url>/2019/12/06/edb-debugger/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Ubuntu-编译edb-debugger"><a href="#Ubuntu-编译edb-debugger" class="headerlink" title="Ubuntu 编译edb debugger"></a>Ubuntu 编译edb debugger</h3><h4 id="1-首先安装第三方库"><a href="#1-首先安装第三方库" class="headerlink" title="1.首先安装第三方库"></a>1.首先安装第三方库</h4><pre class=" language-shell"><code class="language-shell">sudo apt-get install         cmake                                  \    build-essential        \    libboost-dev           \    libqt5xmlpatterns5-dev \    qtbase5-dev            \    qt5-default            \    libqt5svg5-dev         \    libgraphviz-dev        \    libcapstone-dev        \    pkg-config</code></pre><h4 id="2-获取edb-debugger源代码"><a href="#2-获取edb-debugger源代码" class="headerlink" title="2.获取edb-debugger源代码"></a>2.获取edb-debugger源代码</h4><pre class=" language-shell"><code class="language-shell">git clone --recursive https://github.com/eteran/edb-debugger.git</code></pre><h4 id="3-编译源代码"><a href="#3-编译源代码" class="headerlink" title="3.编译源代码"></a>3.编译源代码</h4><pre class=" language-shell"><code class="language-shell">cd edb-debuggermkdir buildcd buildcmake ..make -j8  //-j可以根据自己cpu的数量修改//最后需要安装到系统,可以执行,默认安装位置/usr/local/lib/edb/sudo make install</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 调试器 </tag>
+            
+            <tag> edb </tag>
+            
+            <tag> debugger </tag>
+            
+            <tag> debug </tag>
+            
+            <tag> OllyDbg </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Go 语言学习之文件操作</title>
+      <link href="/2017/04/11/go-file-op/"/>
+      <url>/2017/04/11/go-file-op/</url>
+      
+        <content type="html"><![CDATA[<h3 id="2017年2月27日"><a href="#2017年2月27日" class="headerlink" title="2017年2月27日"></a>2017年2月27日</h3><blockquote><p>文件操作在编程中是非常重要的,我们经常操作的文件类型一般分为二进制文件和普通文本文件,因为文本文件与二进制文件的区别仅仅是编码上不同，所以他们的优缺点就是编码的优缺点.今天我们来学习一下如何用Go语言来建立和操作文件.</p></blockquote><ul><li>1.建立文件</li></ul><pre class=" language-go"><code class="language-go"><span class="token keyword">package</span> main<span class="token keyword">import</span> <span class="token string">"os"</span><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>    customFile<span class="token operator">:=</span><span class="token string">"customFile.dat"</span>    file<span class="token punctuation">,</span>err<span class="token operator">:=</span>os<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span>customFile<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//创建文件</span>    <span class="token keyword">defer</span> file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token function">checkErr</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>    file<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"Hello world"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//使用Write写入数据.这里接受的是byte数组</span><span class="token punctuation">}</span><span class="token keyword">func</span> <span class="token function">checkErr</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>    <span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre><ul><li>2.打开文件</li></ul><pre class=" language-go"><code class="language-go"><span class="token keyword">package</span> main<span class="token keyword">import</span> <span class="token punctuation">(</span>    <span class="token string">"os"</span>    <span class="token string">"fmt"</span><span class="token punctuation">)</span><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>    customFile<span class="token operator">:=</span><span class="token string">"customFile.dat"</span>    file<span class="token punctuation">,</span>err<span class="token operator">:=</span>os<span class="token punctuation">.</span><span class="token function">Open</span><span class="token punctuation">(</span>customFile<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//打开文件</span>    <span class="token keyword">defer</span> file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token function">checkErr</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>    fileSize<span class="token punctuation">,</span>err<span class="token operator">:=</span>os<span class="token punctuation">.</span><span class="token function">Stat</span><span class="token punctuation">(</span>customFile<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//获取文件大小,用来开辟读取的空间</span>    <span class="token function">checkErr</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>    data<span class="token operator">:=</span><span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span><span class="token function">int</span><span class="token punctuation">(</span>fileSize<span class="token punctuation">.</span><span class="token function">Size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//申请用来保存数据的空间</span>    file<span class="token punctuation">.</span><span class="token function">Read</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//读取数据</span>    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//打印数组数据</span>    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//打印字符串数据</span><span class="token punctuation">}</span><span class="token keyword">func</span> <span class="token function">checkErr</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>    <span class="token punctuation">}</span><span class="token punctuation">}</span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> 文件操作s </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>教你如何将公交卡和手机合二为一</title>
+      <link href="/2017/02/27/phone-card/"/>
+      <url>/2017/02/27/phone-card/</url>
+      
+        <content type="html"><![CDATA[<h3 id="2017年2月23日"><a href="#2017年2月23日" class="headerlink" title="2017年2月23日"></a>2017年2月23日</h3><blockquote><p>平时我们经常会做公交或者地铁,刷卡是不可避免的,但是人多的时候,拿卡不方便,又是手机,又是包包,一堆东西很容易弄丢.为了方便,我今天教大家改造自己的手机,把公交卡装进手机.</p></blockquote><p>今天的方法有两种,一种推荐给动手能力强的同学,一种推荐给觉得麻烦的同学.</p><ul><li>1.第一种方法,操作比较复杂,需要我们有工具,并且有一定的动手能力,推荐喜欢折腾的同学.孙老师我就为了折腾这个,损坏了两张公交卡呢.不过没事,我是土豪,哈哈哈</li></ul><p>首先,我们平时用的公交卡,如下图<br><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/card.png?raw=true" alt=""></p><p>黑色记号笔所标记的地方是我们的公交卡芯片所在的位置,我们需要使用手电筒,照在卡的背面,沿着边缘里面一点一点的找,很快就能找到芯片所在的位置.</p><p>找到芯片的位置以后,我们需要的就是使用剪刀一类的工具,把芯片剪下来,记得多剪一些,防止损坏芯片.<br><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/card2.png?raw=true" alt=""></p><p>剪下来的芯片因为还是被塑料包裹着,依然不方便取出,这个时候,我们可以从万能的X宝买一些溶解塑料的溶解液,把芯片放进去,过几个小时就能溶解塑料,轻松获取芯片了.如果觉得动手能力很强,可以完整的用刀片取出,那也可以.不过祝你成功,骚年.<br><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/card3.png?raw=true" alt=""></p><p>拿到了芯片,接下来,我们要给芯片安装线圈了.首先还是要万能的X宝,有现成的可以买,当然你要是自己做,我也不拦着,主要是要各种试验,比较麻烦,而且容易损坏芯片.</p><p>有了线圈,就可以将芯片两端的金属和芯片进行焊接操作,不过千万要小心,芯片不耐热,烙铁要是在芯片上太久了,会损坏芯片的.</p><p>焊完的样子大概是这个样子的<br><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/card4.png?raw=true" alt=""></p><p>最后,还是X宝,买一个抗干扰防磁贴,贴在手机的背面,然后在把我们刚才焊接的芯片贴在磁贴的前面,外面再套上手机套,就可以完成了.</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/card5.png?raw=true" alt=""></p><p>这样做的好处就是手机和公交卡直接放在一起,坐车的时候直接刷一下手机就行了,虽然我的红米没有nfc,但是这样之后,我仍然可以冒充我有nfc,嘿嘿.</p><p>第一种方法的好处是整个手机的厚度基本不会增加,而且刷卡灵敏度也很好,但是动手操作的地方比较多,而且要小心,否则很容易损坏芯片,别问我怎么知道的(我已经损坏了两张卡了).</p><ul><li>2.第二种方法比较简单但是对手机的大小有要求,你的手机必须要大一些,这样能在手机壳下面装的下你的卡.推荐大家使用硅胶手机套,因为这个套套有弹性,手感好,还耐磨,耐磨,耐磨……嘿嘿嘿嘿</li></ul><p>首先拿出我们的卡,比较一下跟手机的大小,最好手机比我们的卡大上两圈.这样放进去更容易</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/phone001.jpg?raw=true" alt=""></p><p>下面是我们的卡和手机套对比.看看我们的卡是否能安装在手机和手机套之间.推荐最好选择硅胶套,有弹性,方便安装,而且外表不变形.</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/phone002.jpg?raw=true" alt=""></p><p>放入手机壳内,看看是否合适.</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/phone003.jpg?raw=true" alt=""></p><p>接下来,把我们从淘宝买的磁贴贴在我们的卡背面,然后磁贴这边贴着手机这面,我们的卡贴着硅胶套这面,然后放入我们的手机.</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/phone004.jpg?raw=true" alt=""></p><p>最后成功的样子!</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/phone005.jpg?raw=true" alt=""></p><p>总结:</p><p>两种方法都是可行的,我已经试过了.</p><p>那么第一种好出就是如果你的手机支持背壳可拆卸,你甚至可以把这个放在手机内部,但是操作麻烦,各种拆拆拆.动手能力差的同学不推荐.</p><p>第二个种的好出就是非常简单,适合动手能力弱的同学,但是第二种一般不适合喜欢裸奔的同学,需要手机套配合使用.</p><p>以上两种方法都可以让你实现公交卡和手机结合,让你的手机没有全NFC功能也一样可以刷公交卡,里面提到的一些东西,X宝都可以买到,价格便宜,动手改造一下自己的手机,方便生活.<br>谢谢大家,我是孙老师.</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 手机 </tag>
+            
+            <tag> 公交卡 </tag>
+            
+            <tag> nfc </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>开博</title>
+      <link href="/2017/02/22/hello-world/"/>
+      <url>/2017/02/22/hello-world/</url>
+      
+        <content type="html"><![CDATA[<h3 id="2017年2月22日"><a href="#2017年2月22日" class="headerlink" title="2017年2月22日"></a>2017年2月22日</h3><p>博客开始创立<br>欢迎大家访问</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
