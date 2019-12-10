@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>tips  记录一些开发中的琐碎</title>
+      <link href="/2019/12/09/tips/"/>
+      <url>/2019/12/09/tips/</url>
+      
+        <content type="html"><![CDATA[<h5 id="1-ubuntu-安装gimp之后没有中文"><a href="#1-ubuntu-安装gimp之后没有中文" class="headerlink" title="1.ubuntu 安装gimp之后没有中文"></a>1.ubuntu 安装gimp之后没有中文</h5><p>一般出现在kubuntu上面,只要安装一下language-pack-gnome-zh-hant就可以了</p><pre><code>sudo apt-get install language-pack-gnome-zh-hant</code></pre><h5 id="2-IDA在64位ubuntu上面提示error-while-loading-shared-libraries-libgtk-x11-2-0-so-0-cannot-open-shared-object-file"><a href="#2-IDA在64位ubuntu上面提示error-while-loading-shared-libraries-libgtk-x11-2-0-so-0-cannot-open-shared-object-file" class="headerlink" title="2.IDA在64位ubuntu上面提示error while loading shared libraries: libgtk-x11-2.0.so.0: cannot open shared object file"></a>2.IDA在64位ubuntu上面提示error while loading shared libraries: libgtk-x11-2.0.so.0: cannot open shared object file</h5><p>这个问题主要是因为缺少开发库,虽然ida是64位的,但是还是有32位依赖库的东西,所以我们要安装一下32位的东西你,命令如下</p><pre class=" language-shell"><code class="language-shell">sudo apt-get install libgtk2.0-0:i386 libxxf86vm1:i386 libsm6:i386 lib32stdc++6</code></pre><h5 id="3-mac-系统中很多软件是32位的-但是10-15以后系统不允许运行了"><a href="#3-mac-系统中很多软件是32位的-但是10-15以后系统不允许运行了" class="headerlink" title="3.mac 系统中很多软件是32位的,但是10.15以后系统不允许运行了"></a>3.mac 系统中很多软件是32位的,但是10.15以后系统不允许运行了</h5><p>解决办法如下</p><pre class=" language-shell"><code class="language-shell">sudo spctl --master-disable</code></pre><h5 id="4-编译elfutils"><a href="#4-编译elfutils" class="headerlink" title="4.编译elfutils"></a>4.编译elfutils</h5><pre class=" language-shell"><code class="language-shell">autoheaderaclocal -I m4autoconfautomake -a -c./configuremake</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 小技巧 </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Ubuntu 编译edb debugger</title>
       <link href="/2019/12/06/edb-debugger/"/>
       <url>/2019/12/06/edb-debugger/</url>
