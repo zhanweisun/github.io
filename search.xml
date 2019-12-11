@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>如何调试已经加壳的APK文件</title>
+      <link href="/2019/12/11/debug-apk/"/>
+      <url>/2019/12/11/debug-apk/</url>
+      
+        <content type="html"><![CDATA[<p>今天有个任务,让我去调试一个APK,需要查看它的性能参数,内存/CPU等的占用,第一时间拿出工具准备反编译,但是发现此包使用了360加固,不确定是否有签名校验,如果有,我就没办法修改AndroidManifest.xml文件来打开调试了.</p><p>既然改包的方法不行,那就只能在系统层面想办法了,谁让我有root的手机呢.</p><p>一下操作需要root权限,如果没有的,请先root手机获取权限</p><p>打开手机的Re文件管理器,找到系统的/目录</p><p>如图,RE文件管理器</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/launchicon.png?raw=true" alt=""></p><p>打开系统的根目录 / ,选择default.prop文件</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/file.png?raw=true" alt=""></p><p>选择右上角的菜单,找到打开方式</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/openmenu.png?raw=true" alt=""></p><p>使用”以文本方式编辑”打开</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/opentype.jpg?raw=true" alt=""></p><p>把ro.secure 和ro.debuggable 字段都改成1,然后重启你的手机</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/edit.png?raw=true" alt=""></p><p>完毕以后就可以用数据线链接手机,进行性能测试了</p><p>如下图</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/run.jpg?raw=true" alt=""></p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/cpu&mem.jpg?raw=true" alt=""></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> android </tag>
+            
+            <tag> apk </tag>
+            
+            <tag> 调试 </tag>
+            
+            <tag> root </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记录一些开发中的琐碎</title>
       <link href="/2019/12/09/tips/"/>
       <url>/2019/12/09/tips/</url>
