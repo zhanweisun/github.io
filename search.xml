@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>Get_App_List</title>
+      <link href="/2019/12/29/get-app-list/"/>
+      <url>/2019/12/29/get-app-list/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>DEX文件结构与解析</title>
       <link href="/2019/12/28/dex-wen-jian-jie-gou-yu-jie-xi/"/>
       <url>/2019/12/28/dex-wen-jian-jie-gou-yu-jie-xi/</url>
@@ -44,33 +57,6 @@
             <tag> X64 </tag>
             
             <tag> 汇编 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>dex01</title>
-      <link href="/2019/12/16/dex01/"/>
-      <url>/2019/12/16/dex01/</url>
-      
-        <content type="html"><![CDATA[<h3 id="跟孙老师一起用kotlin解析Dex文件-01"><a href="#跟孙老师一起用kotlin解析Dex文件-01" class="headerlink" title="跟孙老师一起用kotlin解析Dex文件 01"></a>跟孙老师一起用kotlin解析Dex文件 01</h3><p>因为工作的原因,需要各种反编译和分析dex文件,而工具的使用这是基础,我需要更深入的了解具体的结构,所以花了点时间,研究了一下Dex文件结构,如果你也感兴趣,那就跟我一起来学习吧.</p><p>首先,我们需要准备一下研究需要的东西</p><p>1.我们的一个测试试验品,我选择在github上面找了一个工程,Timber,一个音乐播放器,不过已经不再维护了,新的版本叫TimberX了.</p><p>url地址:<a href="https://github.com/naman14/Timber" target="_blank" rel="noopener">https://github.com/naman14/Timber</a></p><p>下载源代码编译出一个release版本的apk,我们备用</p><p>2.我们还需要一个分析工具,这个能够很好的帮我们分析dex文件结构,这个软件叫010Editor,</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/010editor.jpg?raw=true" alt=""></p><p>软件界面如下</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/010UI.png?raw=true" alt=""></p><p>然后选择菜单的在线模板,我们需要下载dex文件的模板</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/onlinetemp.jpg?raw=true" alt=""></p><p>找到dex文件的模板并下载</p><p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/dex_temp.jpg?raw=true" alt=""></p><p>到此为止,我们准备工作已经做完了</p><p>接下来我们要新建一个Kolitn工程,并开始做dex文件的解析工作了</p><p>首先我们要打开IDEA并安装好kotlin插件,这些工作请自行baidu,我就不废话了.</p><p>1.建立一个kotlin工程,空的工程就可以,然后我们建立一个文件,名字叫main.kt,然后我们先在工程里面写好main函数,目前还是空的.稍后我们来添加代码</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 二进制 </tag>
-            
-            <tag> android </tag>
-            
-            <tag> dex </tag>
-            
-            <tag> kotlin </tag>
-            
-            <tag> 反编译 </tag>
             
         </tags>
       
