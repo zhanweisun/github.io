@@ -4,11 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Say hello to x86_64 Assembly [part 1], 孙老师">
+    <meta name="keywords" content="Say hello to x86_64 Assembly [part 4], 孙老师">
     <meta name="description" content="翻译原文地址
-Say hello to x86_64 Assembly [part 1]介绍Introduction
-我们中间有很多开发者，我们每天写了成千上万行代码。有时候甚至是一些不错的代码：）我们每个人都能写出像下面这样的简单代码：
-">
+Say hello to x86_64 Assembly [part 4]不久前，我开始写一系列关于x86_64汇编编程的博客文章。你可以通过asm标签找到它。不幸的是，我上次很忙，没有新的帖子，所以今天我继续写关于大会的帖子">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +14,7 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Say hello to x86_64 Assembly [part 1] | 孙老师</title>
+    <title>Say hello to x86_64 Assembly [part 4] | 孙老师</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -262,13 +260,13 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Say hello to x86_64 Assembly [part 1]
+                        Say hello to x86_64 Assembly [part 4]
                     </div>
                 </div>
             </div>
@@ -414,7 +412,7 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-01-08
+                    2020-01-11
                 </div>
                 
 
@@ -442,115 +440,183 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><a href="https://github.com/0xAX/asm" target="_blank" rel="noopener">翻译原文地址</a></p>
-<h3 id="Say-hello-to-x86-64-Assembly-part-1"><a href="#Say-hello-to-x86-64-Assembly-part-1" class="headerlink" title="Say hello to x86_64 Assembly [part 1]"></a>Say hello to x86_64 Assembly [part 1]</h3><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>Introduction</p>
-<p>我们中间有很多开发者，我们每天写了成千上万行代码。有时候甚至是一些不错的代码：）我们每个人都能写出像下面这样的简单代码：</p>
-<p>There are many developers between us. We write a tons of code every day. Sometime, it is even not a bad code :) Every of us can easily write the simplest code like this:</p>
-<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-  <span class="token keyword">int</span> y <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"x + y = %d"</span><span class="token punctuation">,</span> x <span class="token operator">+</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>我们每个人都能明白这个c代码做了什么，但…这些代码在底层如何工作的？我相信不是我们所有人都能够回答这个问题，包括我。我认为我能写高级语言的代码，像Haskell, Erlang, Go 等等…,但我绝对不知道在汇编之后他们是如何在底层工作的。所以我决定去进一步深入了解汇编并描绘我的学习方式。希望他会是个很有趣的事情，不仅仅是对我。大概5-6年前，我已经开始使用汇编编写一些简单的程序了，那是我在大学里面，使用Turbo Assembly 和DOS系统。现在我使用Linux-x86-64 系统。是的，Linux 64位和DOS 16位系统有很大的区别。让我们开始吧。</p>
-<p>Every of us can understand what’s this C code does. But… How this code works at low level? I think that not all of us can answer on this question, and me too. I thought that i can write code on high level programming languages like Haskell, Erlang, Go and etc…, but i absolutely don’t know how it works at low level, after compilation. So I decided to take a few deep steps down, to assembly, and to describe my learning way about this. Hope it will be interesting, not only for me. Something about 5 - 6 years ago I already used assembly for writing simple programs, it was in university and i used Turbo assembly and DOS operating system. Now I use Linux-x86-64 operating system. Yes, must be big difference between Linux 64 bit and DOS 16 bit. So let’s start.</p>
-<h5 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h5><p>Preparation</p>
-<p>在我们开始前，我必须准备一些东西，例如我使用的Ubuntu(Ubuntu 14.04.1 LTS 64 bit)，因此我写的文章将针对这个操作系统和架构。不同的CPU支持不同的指令集，我使用的是 Intel Core i7 870 处理器，所有的代码都将由这个处理器所编写。我将使用nasm汇编，你可以使用下面命令安装：</p>
-<p>Before we started, we must to prepare some things like As I wrote about, I use Ubuntu (Ubuntu 14.04.1 LTS 64 bit), thus my posts will be for this operating system and architecture. Different CPU supports different set of instructions. I use Intel Core i7 870 processor, and all code will be written processor. Also i will use nasm assembly. You can install it with:</p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nasm</code></pre>
-<p>它的版本必须是2.0.0或者更高版本。我2013年12月29日编译的NASM版本是2.10.09。最后一部分，需要在文本编辑器中编写汇编代码。我使用Emacs配合nasm-mode.el来进行编写。当然你可以选择你喜欢的编辑器。如果你和我一样使用Emacs，你可以下载nasm-mode.el 并配置你的Emacs像这样：</p>
-<p>It’s version must be 2.0.0 or greater. I use NASM version 2.10.09 compiled on Dec 29 2013 version. And the last part, you will need in text editor where you will write you assembly code. I use Emacs with nasm-mode.el for this. It is not mandatory, of course you can use your favourite text editor. If you use Emacs as me you can download nasm-mode.el and configure your Emacs like this:</p>
-<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">(load</span> <span class="token attr-value">"~/.emacs.d/lisp/nasm.el")</span>
-<span class="token attr-name">(require</span> <span class="token attr-value">'nasm-mode)</span>
-<span class="token attr-name">(add-to-list</span> <span class="token attr-value">'auto-mode-alist '("\\.\\(asm\\|s\\)$" . nasm-mode))</span></code></pre>
-<p>这就是我们现在所需要的。其他工具将在下一篇文章中描述。</p>
-<p>That’s all we need for this moment. Other tools will be describe in next posts.</p>
-<h5 id="nasm汇编的语法"><a href="#nasm汇编的语法" class="headerlink" title="nasm汇编的语法"></a>nasm汇编的语法</h5><p>Syntax of nasm assembly</p>
-<p>在这里，我不会描述完整的汇编语法，我们将只提到我们在本文中使用到的部分语法。通常NASM程序分为几个部分。在本文中，我们将讨论以下两个部分：</p>
-<p>Here I will not describe full assembly syntax, we’ll mention only those parts of the syntax, which we will use in this post. Usually NASM program divided into sections. In this post we’ll meet 2 following sections:</p>
-<ul>
-<li><p>数据段</p>
-</li>
-<li><p>文本段</p>
-</li>
-<li><p>data section</p>
-</li>
-<li><p>text section</p>
-</li>
-</ul>
-<p>数据段用于声明常量。此数据在运行时不会更改。您可以声明各种数学或其他常量等。声明数据段的语法为：</p>
-<p>The data section is used for declaring constants. This data does not change at runtime. You can declare various math or other constants and etc… The syntax for declaring data section is:</p>
-<pre class=" language-nasm"><code class="language-nasm"><span class="token keyword">section .data</span> </code></pre>
-<p>文本部分用于代码。本节必须以声明global-start开始，它告诉内核程序执行的开始位置。</p>
-<p>The text section is for code. This section must begin with the declaration global _start, which tells the kernel where the program execution begins.</p>
-<pre class=" language-nasm"><code class="language-nasm">    <span class="token keyword">section .text</span>
-    <span class="token keyword">global _start</span>
-    <span class="token label function">_start:</span></code></pre>
-<p>注释以；符号开头。每个NASM源代码行都包含以下四个字段的某些组合：</p>
-<p>Comments starts with the ; symbol. Every NASM source code line contains some combination of the following four fields:</p>
-<pre class=" language-nasm"><code class="language-nasm"><span class="token operator">[</span>label:<span class="token operator">]</span> instruction <span class="token operator">[</span>operands<span class="token operator">]</span> <span class="token operator">[</span><span class="token comment" spellcheck="true">; comment]</span></code></pre>
-<p>方括号中的字段是可选的。基本的NASM指令由两部分组成。第一个是要执行的指令的名称，第二个是这个命令的操作数。例如：</p>
-<p>Fields which are in square brackets are optional. A basic NASM instruction consists from two parts. The first one is the name of the instruction which is to be executed, and the second are the operands of this command. For example:</p>
-<pre class=" language-nasm"><code class="language-nasm">MOV COUNT, <span class="token number">48</span> <span class="token comment" spellcheck="true">; Put value 48 in the COUNT variable</span></code></pre>
-<h5 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h5><p>Hello world</p>
-<p>让我们用NASM汇编编写第一个程序。当然，这将是传统的Hello world程序。这是它的代码：</p>
-<p>Let’s write first program with NASM assembly. And of course it will be traditional Hello world program. Here is the code of it:</p>
+<h3 id="Say-hello-to-x86-64-Assembly-part-4"><a href="#Say-hello-to-x86-64-Assembly-part-4" class="headerlink" title="Say hello to x86_64 Assembly [part 4]"></a>Say hello to x86_64 Assembly [part 4]</h3><p>不久前，我开始写一系列关于x86_64汇编编程的博客文章。你可以通过asm标签找到它。不幸的是，我上次很忙，没有新的帖子，所以今天我继续写关于大会的帖子，并将努力做到每周。</p>
+<p>Some time ago i started to write series of blog posts about assembly programming for x86_64. You can find it by asm tag. Unfortunately i was busy last time and there were not new post, so today I continue to write posts about assembly, and will try to do it every week.</p>
+<p>今天我们要看字符串和一些字符串操作。我们仍然使用NASM汇编和Linux X86_64。</p>
+<p>Today we will look at strings and some strings operations. We still use nasm assembler, and linux x86_64.</p>
+<h4 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h4><p>Reverse string</p>
+<p>当然，当我们谈论汇编语言时，我们不能谈论字符串数据类型，实际上我们是在处理字节数组。让我们尝试编写一个简单的示例，我们将定义字符串数据，并尝试将结果反向并通过stdout输出。当我们开始学习新的编程语言时，这些任务看起来非常简单和流行。让我们看看实现。<br>首先，我定义初始化数据。它将放在数据部分（您可以阅读有关部分的内容）：</p>
+<p>Of course when we talk about assembly programming language we can’t talk about string data type, actually we’re dealing with array of bytes. Let’s try to write simple example, we will define string data and try to reverse and write result to stdout. This tasks seems pretty simple and popular when we start to learn new programming language. Let’s look on implementation.</p>
+<p>First of all, I define initialized data. It will be placed in data section (You can read about sections in part):</p>
 <pre class=" language-nasm"><code class="language-nasm"><span class="token keyword">section .data</span>
-    msg db      <span class="token string">"hello, world!"</span>
+        SYS_WRITE equ <span class="token number">1</span>
+        STD_OUT   equ <span class="token number">1</span>
+        SYS_EXIT  equ <span class="token number">60</span>
+        EXIT_CODE equ <span class="token number">0</span>
 
-<span class="token keyword">section .text</span>
-    <span class="token keyword">global _start</span>
-<span class="token label function">_start:</span>
-    mov     <span class="token register variable">rax</span>, <span class="token number">1</span>
-    mov     <span class="token register variable">rdi</span>, <span class="token number">1</span>
-    mov     <span class="token register variable">rsi</span>, msg
-    mov     <span class="token register variable">rdx</span>, <span class="token number">13</span>
-    syscall
-    mov    <span class="token register variable">rax</span>, <span class="token number">60</span>
-    mov    <span class="token register variable">rdi</span>, <span class="token number">0</span>
-    syscall</code></pre>
-<p>是的，它看起来不像printf（“Hello world”）。让我们试着了解它是什么以及它是如何工作的。看1-2行。我们定义了data section并将msg常量与Hello world值放在一起。现在我们可以在代码中使用这个常量。接下来是声明文本段和程序入口点。程序将从7行开始执行。现在开始最有趣的部分。我们已经知道它是mov指令了，它有两个操作数，然后把值从第二个放到第一个。但这些rax，rdi…是什么,我们可以在维基百科上看到:</p>
-<p>Yes, it doesn’t look like printf(“Hello world”). Let’s try to understand what is it and how it works. Take a look 1-2 lines. We defined data section and put there msg constant with Hello world value. Now we can use this constant in our code. Next is declaration text section and entry point of program. Program will start to execute from 7 line. Now starts the most interesting part. We already know what is it mov instruction, it gets 2 operands and put value of second to first. But what is it these rax, rdi and etc… As we can read in the wikipedia:</p>
-<pre><code>中央处理器（CPU）是计算机内部的硬件，它通过执行系统的基本算术、逻辑和输入/输出操作来执行计算机程序的指令。</code></pre><pre><code>A central processing unit (CPU) is the hardware within a computer that carries out the instructions of a computer program by performing the basic arithmetical, logical, and input/output operations of the system.</code></pre><p>好的，CPU执行一些操作，算术等… 但是它从哪里可以得到这些操作的数据呢？第一个答案就是内存。然而，读取数据并将数据存储到内存中会减慢处理器的速度，因为它涉及通过控制总线发送数据请求的复杂过程。因此，CPU有自己的内部内存存储位置，称为寄存器：</p>
-<p>Ok, CPU performs some operations, arithmetical and etc… But where can it get data for this operations? The first answer in memory. However, reading data from and storing data into memory slows down the processor, as it involves complicated processes of sending the data request across the control bus. Thus CPU has own internal memory storage locations called registers:</p>
-<p>所以当我们写mov rax，1时，它的意思是把1放到rax寄存器中。现在我们知道什么是rax，rdi，rbx等等…但需要知道何时使用rax，何时rsi等等…</p>
-<p>So when we write mov rax, 1, it means to put 1 to the rax register. Now we know what is it rax, rdi, rbx and etc… But need to know when to use rax but when rsi and etc…</p>
+        NEW_LINE db <span class="token number">0xa</span>
+        INPUT db <span class="token string">"Hello world!"</span></code></pre>
+<p>这里我们可以看到四个常数：</p>
 <ul>
-<li>rax - 临时寄存器；调用syscal时，rax必须包含syscall编号</li>
-<li>rdx - 用于将第三个参数传递给函数</li>
-<li>rdi - 用于将第一个参数传递给函数</li>
-<li>rsi - 用于向函数传递第二个参数的指针</li>
-<li>rax - temporary register; when we call a syscal, rax must contain syscall number</li>
-<li>rdx - used to pass 3rd argument to functions</li>
-<li>rdi - used to pass 1st argument to functions</li>
-<li>rsi - pointer used to pass 2nd argument to functions</li>
+<li>SYS_WRITE-“写入”系统调用号</li>
+<li>STD_OUT-stdout文件描述符</li>
+<li>SYS_EXIT-“退出”系统的Syscall号</li>
+<li>EXIT_CODE-退出代码</li>
 </ul>
-<p>换句话说，我们只是调用sys_write sys call。查看sys_write：</p>
-<p>In another words we just make a call of sys_write syscall. Take a look on sys_write:</p>
-<pre class=" language-c"><code class="language-c">size_t <span class="token function">sys_write</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span> buf<span class="token punctuation">,</span> size_t count<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>他有三个参数:</p>
-<p>It has 3 arguments:</p>
+<p>你可以在这里找到系统调用列表。也有定义：</p>
 <ul>
-<li><p>fd - 文件描述符。对应标准输入、标准输出和标准错误，可以是0、1和2</p>
-</li>
-<li><p>buf - 指向字符数组，该数组可用于获取fd指向的文件内容。</p>
-</li>
-<li><p>count - 指定要从文件写入字符数组的字节数</p>
-</li>
-<li><p>fd - file descriptor. Can be 0, 1 and 2 for standard input, standard output and standard error</p>
-</li>
-<li><p>buf - points to a character array, which can be used to store content obtained from the file pointed to by fd.</p>
-</li>
-<li><p>count - specifies the number of bytes to be written from the file into the character array</p>
-</li>
+<li>NEW_LINE-新行（\n）符号</li>
+<li>INPUT-我们的输入字符串，我们将反转它</li>
 </ul>
-<p>所以我们知道sys_write syscall有三个参数，在syscall表中是第一个。让我们再来看看我们的hello world实现。我们将1放入rax寄存器，这意味着我们将使用sys_write系统调用。在下一行中，我们将1放入rdi寄存器，它将是sys_write的第一个参数，1-标准输出。然后我们将指向msg的指针存储在rsi寄存器中，它将是sys_write的第二个buf参数。然后我们将最后一个（第三个）参数（字符串长度）传递给rdx，它将是sys_write的第三个参数。现在我们有了sys_write的所有参数，可以用sys call函数在11行调用它。好的，我们打印了“Hello World”字符串，现在需要正确地退出程序。我们传递60到RAX寄存器，60是一个信号退出syscall。并将0传递给rdi寄存器，它是错误代码，所以0表示我们的程序成功退出。这就是“你好世界”的全部内容。很简单：）现在让我们构建我们的程序。例如，hello.asm文件中有此代码。然后我们需要执行以下命令：</p>
-<p>So we know that sys_write syscall takes three arguments and has number one in syscall table. Let’s look again to our hello world implementation. We put 1 to rax register, it means that we will use sys_write system call. In next line we put 1 to rdi register, it will be first argument of sys_write, 1 - standard output. Then we store pointer to msg at rsi register, it will be second buf argument for sys_write. And then we pass the last (third) parameter (length of string) to rdx, it will be third argument of sys_write. Now we have all arguments of the sys_write and we can call it with syscall function at 11 line. Ok, we printed “Hello world” string, now need to do correctly exit from program. We pass 60 to rax register, 60 is a number of exit syscall. And pass also 0 to rdi register, it will be error code, so with 0 our program must exit successfully. That’s all for “Hello world”. Quite simple :) Now let’s build our program. For example we have this code in hello.asm file. Then we need to execute following commands:</p>
-<pre class=" language-bash"><code class="language-bash">$ nasm -f elf64 -o hello.o hello.asm
-$ ld -o hello hello.o</code></pre>
-<p>在它之后，我们将拥有可执行的hello文件，我们可以使用./hello运行它，并将在终端中看到hello world字符串。</p>
-<p>After it we will have executable hello file which we can run with ./hello and will see Hello world string in the terminal.</p>
+<p>接下来，我们为缓冲区定义bss部分，在这里我们将放置反向字符串：</p>
+<p>Here we can see four constants:</p>
+<ul>
+<li><code>SYS_WRITE</code> - ‘write’ syscall number</li>
+<li><code>STD_OUT</code> - stdout file descriptor</li>
+<li><code>SYS_EXIT</code> - ‘exit’ syscall number</li>
+<li><code>EXIT_CODE</code> - exit code</li>
+</ul>
+<p>syscall list you can find - here. Also there defined:</p>
+<ul>
+<li><code>NEW_LINE</code> - new line (\n) symbol</li>
+<li><code>INPUT</code> - our input string, which we will reverse</li>
+</ul>
+<p>Next we define bss section for our buffer, where we will put reversed string:</p>
+<pre class=" language-nasm"><code class="language-nasm"><span class="token keyword">section .bss</span>
+        OUTPUT resb <span class="token number">12</span></code></pre>
+<p>好的，我们有一些数据和缓冲区用来存放结果，现在我们可以定义代码的文本段。让我们从主启动程序开始：</p>
+<p>Ok we have some data and buffer where to put result, now we can define text section for code. Let’s start from main _start routine:</p>
+<pre class=" language-nasm"><code class="language-nasm"><span class="token label function">_start:</span>
+        mov <span class="token register variable">rsi</span>, INPUT
+        xor <span class="token register variable">rcx</span>, <span class="token register variable">rcx</span>
+        cld
+        mov <span class="token register variable">rdi</span>, <span class="token operator">$</span> <span class="token operator">+</span> <span class="token number">15</span>
+        call calculateStrLength
+        xor <span class="token register variable">rax</span>, <span class="token register variable">rax</span>
+        xor <span class="token register variable">rdi</span>, <span class="token register variable">rdi</span>
+        jmp reverseStr</code></pre>
+<p>这里有一些新东西。让我们看看它是如何工作的：首先，我们把INPUT的地址放在第2行的rsi寄存器中，就像我们写stdout和写零到rcx寄存器一样，它将是计算字符串长度的计数器。在第四行我们可以看到cld操作符。它将df flag重置为零。因为当我们计算字符串的长度时需要它，我们将遍历该字符串的内容元素，如果df flag为0，我们将从左到右处理字符串的符号。接下来我们调用calculateStrLength函数。我略过了有mov rdi指令的第5行，$+15指令，我稍后会告诉您。现在让我们看一下calculateStrength的实现：</p>
+<p>Here are some new things. Let’s see how it works: First of all we put INPUT address to si register at line 2, as we did for writing to stdout and write zeros to rcx register, it will be counter for calculating length of our string. At line 4 we can see cld operator. It resets df flag to zero. We need in it because when we will calculate length of string, we will go through symbols of this string, and if df flag will be 0, we will handle symbols of string from left to right. Next we call calculateStrLength function. I missed line 5 with mov rdi, $ + 15 instruction, i will tell about it little later. And now let’s look at calculateStrLength implementation:</p>
+<pre class=" language-nasm"><code class="language-nasm"><span class="token label function">calculateStrLength:</span>
+        <span class="token comment" spellcheck="true">;; check is it end of string</span>
+        cmp byte <span class="token operator">[</span><span class="token register variable">rsi</span><span class="token operator">]</span>, <span class="token number">0</span>
+        <span class="token comment" spellcheck="true">;; if yes exit from function</span>
+        je exitFromRoutine
+        <span class="token comment" spellcheck="true">;; load byte from rsi to al and inc rsi</span>
+        lodsb
+        <span class="token comment" spellcheck="true">;; push symbol to stack</span>
+        push <span class="token register variable">rax</span>
+        <span class="token comment" spellcheck="true">;; increase counter</span>
+        inc <span class="token register variable">rcx</span>
+        <span class="token comment" spellcheck="true">;; loop again</span>
+        jmp calculateStrLength</code></pre>
+<p>正如您可以通过它的名称理解他的含义，它只计算输入字符串的长度并将结果存储在rcx寄存器中。首先，我们检查RSI寄存器不指向零，如果是，这是字符串的结尾，我们可以从函数中退出。接下来是lodsb指令。很简单， 他只是把1字节放到al寄存器（16位ax的低位）并更改rsi指针。当我们执行cld指令时，lodsb每次都将rsi从左到右移动到一个字节，因此我们将按字符串元素移动。之后，我们将rax值推送到堆栈，现在它包含字符串中的符号（lodsb将字节从si放到al，al是rax的低8位）。为什么我们要把符号推到堆栈上？你必须记住堆栈是如何工作的，它是按照后进先出的原则工作的。这对我们很有好处。我们将从si中获取第一个元素，将其推到堆栈中，而不是第二个元素，依此类推。所以在堆栈顶部会有字符串的最后一个元素。而不仅仅是从堆栈中逐元素弹出并写入输出缓冲区。在它之后，我们增加计数器（rcx）并再次循环到例程的开始。</p>
+<p>As you can understand by it’s name, it just calculates length of INPUT string and store result in rcx register. First of all we check that rsi register doesn’t point to zero, if so this is the end of string and we can exit from function. Next is lodsb instruction. It’s simple, it just put 1 byte to al register (low part of 16 bit ax) and changes rsi pointer. As we executed cld instruction, lodsb everytime will move rsi to one byte from left to right, so we will move by string symbols. After it we push rax value to stack, now it contains symbol from our string (lodsb puts byte from si to al, al is low 8 bit of rax). Why we did push symbol to stack? You must remember how stack works, it works by principle LIFO (last input, first output). It is very good for us. We will take first symbol from si, push it to stack, than second and so on. So there will be last symbol of string at the stack top. Than we just pop symbol by symbol from stack and write to OUTPUT buffer. After it we increment our counter (rcx) and loop again to the start of routine.</p>
+<p>好的，我们把所有的符号从字符串推到栈，现在我们可以跳转到exitFromRoutine返回到_start 这里。怎么做？我们有ret指令。代码是这样的：</p>
+<p>Ok, we pushed all symbols from string to stack, now we can jump to exitFromRoutine return to _start there. How to do it? We have ret instruction for this. But if code will be like this:</p>
+<pre class=" language-nasm"><code class="language-nasm"><span class="token label function">exitFromRoutine:</span>
+        <span class="token comment" spellcheck="true">;; return to _start</span>
+        ret</code></pre>
+<p>它不会起作用的。为什么？这很棘手。记得我们在开始时调用calculateStrLength。当我们调用一个函数时会发生什么？首先，函数的参数从右向左推到堆栈。返回地址将推送到堆栈。所以函数将知道在执行结束后返回哪里。但是看看calculateStrength，我们将符号从字符串推送到堆栈，现在堆栈顶部没有返回地址，函数不知道返回到哪里。如何面对它。现在，我们必须在调用之前查看奇怪的指令：</p>
+<p>It will not work. Why? It is tricky. Remember we called calculateStrLength at _start. What occurs when we call a function? First of all function’s parameters pushes to stack from right to left. After it return address pushes to stack. So function will know where to return after end of execution. But look at calculateStrLength, we pushed symbols from our string to stack and now there is no return address of stack top and function doesn’t know where to return. How to be with it. Now we must take a look to the weird instruction before call:</p>
+<pre class=" language-nasm"><code class="language-nasm">mov <span class="token register variable">rdi</span>, <span class="token operator">$</span> <span class="token operator">+</span> <span class="token number">15</span></code></pre>
+<p>首先：</p>
+<ul>
+<li>$-返回字符串内存中定义$的位置</li>
+<li>$$-返回当前节开始的内存位置</li>
+</ul>
+<p>所以我们有mov rdi的位置，$+15，但是为什么我们在这里加15？听着，我们需要知道下一行在计算长度后的位置。让我们使用objdump util打开文件：</p>
+<p>First all:</p>
+<ul>
+<li><code>$</code> - returns position in memory of string where $ defined</li>
+<li><code>$$</code> - returns position in memory of current section start</li>
+</ul>
+<p>So we have position of mov rdi, $ + 15, but why we add 15 here? Look, we need to know position of next line after calculateStrLength. Let’s open our file with objdump util:</p>
+<pre class=" language-nasm"><code class="language-nasm">objdump <span class="token operator">-</span>D reverse
+
+<span class="token label function">reverse:</span>     file format elf64<span class="token operator">-</span>x86<span class="token number">-64</span>
+
+Disassembly of section .text:
+
+00000000004000b0 <span class="token operator">&lt;</span>_start<span class="token operator">></span>:
+  4000b0:    <span class="token number">48</span> be <span class="token number">41</span> <span class="token number">01</span> <span class="token number">60</span> <span class="token number">00</span> <span class="token number">00</span>     movabs <span class="token operator">$</span><span class="token number">0x600141</span>,<span class="token operator">%</span><span class="token register variable">rsi</span>
+  4000b7:    <span class="token number">00</span> <span class="token number">00</span> <span class="token number">00</span>
+  4000ba:    <span class="token number">48</span> <span class="token number">31</span> c9                 xor    <span class="token operator">%</span><span class="token register variable">rcx</span>,<span class="token operator">%</span><span class="token register variable">rcx</span>
+  4000bd:    fc                       cld
+  4000be:    <span class="token number">48</span> bf cd <span class="token number">00</span> <span class="token number">40</span> <span class="token number">00</span> <span class="token number">00</span>     movabs <span class="token operator">$</span><span class="token number">0x4000cd</span>,<span class="token operator">%</span><span class="token register variable">rdi</span>
+  4000c5:    <span class="token number">00</span> <span class="token number">00</span> <span class="token number">00</span>
+  4000c8:    e8 <span class="token number">08</span> <span class="token number">00</span> <span class="token number">00</span> <span class="token number">00</span>           callq  4000d5 <span class="token operator">&lt;</span>calculateStrLength<span class="token operator">></span>
+  4000cd:    <span class="token number">48</span> <span class="token number">31</span> c0                 xor    <span class="token operator">%</span><span class="token register variable">rax</span>,<span class="token operator">%</span><span class="token register variable">rax</span>
+  4000d0:    <span class="token number">48</span> <span class="token number">31</span> ff                 xor    <span class="token operator">%</span><span class="token register variable">rdi</span>,<span class="token operator">%</span><span class="token register variable">rdi</span>
+  4000d3:    eb 0e                    jmp    <span class="token number">4000e3</span> <span class="token operator">&lt;</span>reverseStr<span class="token operator">></span></code></pre>
+<p>我们可以看到，第12行（mov rdi，$+15）占用10个字节，第16-5行的函数调用占用15个字节。所以我们的回信地址是mov rdi，$+15。现在，我们可以将返回地址从rdi推送到堆栈并从函数返回：</p>
+<p>We can see here that line 12 (our mov rdi, $ + 15) takes 10 bytes and function call at line 16 - 5 bytes, so it takes 15 bytes. That’s why our return address will be mov rdi, $ + 15. Now we can push return address from rdi to stack and return from function:</p>
+<pre class=" language-nasm"><code class="language-nasm"><span class="token label function">exitFromRoutine:</span>
+        <span class="token comment" spellcheck="true">;; push return addres to stack again</span>
+        push <span class="token register variable">rdi</span>
+        <span class="token comment" spellcheck="true">;; return to _start</span>
+        ret</code></pre>
+<p>现在我们回到起点。在调用calculateStrength之后，我们向rax和rdi写入零并跳转到reverseStr标签。具体实施如下：</p>
+<p>Now we return to start. After call of the <code>calculateStrLength</code> we write zeros to rax and rdi and jump to reverseStr label. It’s implementation is following:</p>
+<pre class=" language-nasm"><code class="language-nasm"><span class="token label function">reverseStr:</span>
+        cmp <span class="token register variable">rcx</span>, <span class="token number">0</span>
+        je printResult
+        pop <span class="token register variable">rax</span>
+        mov <span class="token operator">[</span>OUTPUT <span class="token operator">+</span> <span class="token register variable">rdi</span><span class="token operator">]</span>, <span class="token register variable">rax</span>
+        dec <span class="token register variable">rcx</span>
+        inc <span class="token register variable">rdi</span>
+        jmp reverseStr</code></pre>
+<p>在这里，我们检查计数器，它是字符串的长度，如果它是零，我们将所有元素写入缓冲区，并可以打印它。检查完计数器后，我们从堆栈弹出到rax寄存器的第一个元素，并将其写入输出缓冲区。我们添加rdi是因为用另一种方法我们将符号写入缓冲区的第一个字节。在此之后，我们通过输出缓冲区增加移动下一个的rdi，减少长度计数器并跳到标签的开始。<br>执行reverseStr之后，我们在输出缓冲区中反转了字符串，可以用新行将结果写入stdout：</p>
+<p>Here we check our counter which is length of string and if it is zero we wrote all symbols to buffer and can print it. After checking counter we pop from stack to rax register first symbol and write it to OUTPUT buffer. We add rdi because in other way we’ll write symbol to first byte of buffer. After this we increase rdi for moving next by OUTPUT buffer, decrease length counter and jump to the start of label.</p>
+<p>After execution of reverseStr we have reversed string in OUTPUT buffer and can write result to stdout with new line:</p>
+<pre class=" language-assembly"><code class="language-assembly">printResult:
+        mov rdx, rdi
+        mov rax, 1
+        mov rdi, 1
+        mov rsi, OUTPUT
+                syscall
+        jmp printNewLine
+
+printNewLine:
+        mov rax, SYS_WRITE
+        mov rdi, STD_OUT
+        mov rsi, NEW_LINE
+        mov rdx, 1
+        syscall
+        jmp exit</code></pre>
+<p>从我们的程序退出:</p>
+<p>and exit from the our program:</p>
+<pre class=" language-assembly"><code class="language-assembly">exit:
+        mov rax, SYS_EXIT
+        mov rdi, EXIT_CODE
+        syscall</code></pre>
+<p>就这些,现在我们可以编译我们的程序:</p>
+<p>That’s all, now we can compile our program with:</p>
+<pre class=" language-makefile"><code class="language-makefile"><span class="token symbol">all</span><span class="token punctuation">:</span>
+    nasm -g -f elf64 -o reverse.o reverse.asm
+    ld -o reverse reverse.o
+
+<span class="token symbol">clean</span><span class="token punctuation">:</span>
+    rm reverse reverse.o</code></pre>
+<p>并运行它:</p>
+<p>and run it:</p>
+<p>![](<a href="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/Screenshot" target="_blank" rel="noopener">https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/Screenshot</a> from 2014-11-20 19_51_15.png?raw=true)</p>
+<h4 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h4><p>当然，还有许多其他的字符串/字节操作说明：</p>
+<ul>
+<li>REP-在rcx不为零时重复</li>
+<li>MOVSB-复制字节字符串（MOVSW、MOVSD等）</li>
+<li>CMPSB-字节字符串比较</li>
+<li>SCASB-字节字符串扫描</li>
+<li>STOSB-将字节写入字符串</li>
+</ul>
+<p>Of course there are many other instructions for string/bytes manipulations:</p>
+<ul>
+<li><code>REP</code> - repeat while rcx is not zero</li>
+<li><code>MOVSB</code> - copy a string of bytes (MOVSW, MOVSD and etc..)</li>
+<li><code>CMPSB</code> - byte string comparison</li>
+<li><code>SCASB</code> - byte string scanning</li>
+<li><code>STOSB</code> - write byte to string</li>
+</ul>
 
             </div>
             <hr/>
@@ -576,7 +642,7 @@ $ ld -o hello hello.o</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zhanweisun.github.io/2020/01/08/say-hello-to-x86-64-assembly-part-1/">http://zhanweisun.github.io/2020/01/08/say-hello-to-x86-64-assembly-part-1/</a>
+                    <a href="http://zhanweisun.github.io/2020/01/11/say-hello-to-x86-64-assembly-part-4/">http://zhanweisun.github.io/2020/01/11/say-hello-to-x86-64-assembly-part-4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -797,26 +863,25 @@ $ ld -o hello hello.o</code></pre>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/01/09/say-hello-to-x86-64-assembly-part-2/">
+                <a href="/2020/01/11/say-hello-to-x86-64-assembly-part-5/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Say hello to x86_64 Assembly [part 2]">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Say hello to x86_64 Assembly [part 5]">
                         
-                        <span class="card-title">Say hello to x86_64 Assembly [part 2]</span>
+                        <span class="card-title">Say hello to x86_64 Assembly [part 5]</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             翻译原文地址
-Say hello to x86_64 Assembly [part 2]几天前，我写了第一篇博文-介绍x64汇编-Say hello to x64 Assembly [part 1]，出乎我的意料，引起了极大的兴趣：
-Som
+Say hello to x86_64 Assembly [part 5]这是Say hello to x86_64 Assembly的第五部分，下面我们将介绍宏。它不会是关于x86_64的博客文章，主要是关于nasm汇编程序
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-11
                         </span>
                         <span class="publish-author">
                             
@@ -856,32 +921,26 @@ Som
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/08/adb-chang-yong-ming-ling-ji-lu/">
+                <a href="/2020/01/10/say-hello-to-x86-64-assembly-part-3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="adb 常用命令记录">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Say hello to x86_64 Assembly [part 3]">
                         
-                        <span class="card-title">adb 常用命令记录</span>
+                        <span class="card-title">Say hello to x86_64 Assembly [part 3]</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-title: android 常用命令记录date: 2020-01-08 23:46:20tags: 
-
-android
-常用命令
-shell
-
-
-android 常用命令记录1.adb shell dumpsys meminfo查看指
+                            翻译原文地址翻译原文地址
+Say hello to x86_64 Assembly [part 3]堆栈是存储器中的一个特殊区域，其工作原理是后进先出。
+The stack is special region in memory, whic
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-10
                             </span>
                         <span class="publish-author">
                             
@@ -890,6 +949,26 @@ android 常用命令记录1.adb shell dumpsys meminfo查看指
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/x86/">
+                        <span class="chip bg-color">x86</span>
+                    </a>
+                    
+                    <a href="/tags/x64/">
+                        <span class="chip bg-color">x64</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%87%E7%BC%96/">
+                        <span class="chip bg-color">汇编</span>
+                    </a>
+                    
+                    <a href="/tags/assembly/">
+                        <span class="chip bg-color">assembly</span>
+                    </a>
+                    
                 </div>
                 
             </div>

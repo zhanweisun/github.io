@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Say hello to x86_64 Assembly [part 1], 孙老师">
+    <meta name="keywords" content="Say hello to x86_64 Assembly [part 7], 孙老师">
     <meta name="description" content="翻译原文地址
-Say hello to x86_64 Assembly [part 1]介绍Introduction
-我们中间有很多开发者，我们每天写了成千上万行代码。有时候甚至是一些不错的代码：）我们每个人都能写出像下面这样的简单代码：
-">
+Say hello to x86_64 Assembly [part 7]这是Say hello to x86_64 Assembly的第七部分，在这里我们将学习如何将C与汇编程序一起使用。
+It is seventh par">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Say hello to x86_64 Assembly [part 1] | 孙老师</title>
+    <title>Say hello to x86_64 Assembly [part 7] | 孙老师</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -262,13 +261,13 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Say hello to x86_64 Assembly [part 1]
+                        Say hello to x86_64 Assembly [part 7]
                     </div>
                 </div>
             </div>
@@ -414,7 +413,7 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-01-08
+                    2020-01-11
                 </div>
                 
 
@@ -425,7 +424,7 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    7 分
                 </div>
                 
 				
@@ -442,115 +441,139 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><a href="https://github.com/0xAX/asm" target="_blank" rel="noopener">翻译原文地址</a></p>
-<h3 id="Say-hello-to-x86-64-Assembly-part-1"><a href="#Say-hello-to-x86-64-Assembly-part-1" class="headerlink" title="Say hello to x86_64 Assembly [part 1]"></a>Say hello to x86_64 Assembly [part 1]</h3><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><p>Introduction</p>
-<p>我们中间有很多开发者，我们每天写了成千上万行代码。有时候甚至是一些不错的代码：）我们每个人都能写出像下面这样的简单代码：</p>
-<p>There are many developers between us. We write a tons of code every day. Sometime, it is even not a bad code :) Every of us can easily write the simplest code like this:</p>
-<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<h3 id="Say-hello-to-x86-64-Assembly-part-7"><a href="#Say-hello-to-x86-64-Assembly-part-7" class="headerlink" title="Say hello to x86_64 Assembly [part 7]"></a>Say hello to x86_64 Assembly [part 7]</h3><p>这是Say hello to x86_64 Assembly的第七部分，在这里我们将学习如何将C与汇编程序一起使用。</p>
+<p>It is seventh part of Say hello to x86_64 Assembly and here we will look on how we can use C together with assembler.</p>
+<p>实际上，我们有三种方法可以一起使用：</p>
+<ul>
+<li>-从C代码调用程序集例程</li>
+<li>-从程序集代码调用c例程</li>
+<li>-在C代码中使用内联程序集</li>
+</ul>
+<p>Actually we have 3 ways to use it together:</p>
+<ul>
+<li>Call assembly routines from C code</li>
+<li>Call c routines from assembly code</li>
+<li>Use inline assembly in C code</li>
+</ul>
+<p>让我们编写3个简单的Hello world程序，演示如何将assembly和C结合使用。</p>
+<p>Let’s write 3 simple Hello world programs which shows us how to use assembly and C together.</p>
+<h4 id="从C调用汇编"><a href="#从C调用汇编" class="headerlink" title="从C调用汇编"></a>从C调用汇编</h4><p>Call assembly from C</p>
+<p>首先让我们编写如下简单的C程序：</p>
+<p>First of all let’s write simple C program like this:</p>
+<pre class=" language-C"><code class="language-C">#include <string.h>
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-  <span class="token keyword">int</span> y <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"x + y = %d"</span><span class="token punctuation">,</span> x <span class="token operator">+</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>我们每个人都能明白这个c代码做了什么，但…这些代码在底层如何工作的？我相信不是我们所有人都能够回答这个问题，包括我。我认为我能写高级语言的代码，像Haskell, Erlang, Go 等等…,但我绝对不知道在汇编之后他们是如何在底层工作的。所以我决定去进一步深入了解汇编并描绘我的学习方式。希望他会是个很有趣的事情，不仅仅是对我。大概5-6年前，我已经开始使用汇编编写一些简单的程序了，那是我在大学里面，使用Turbo Assembly 和DOS系统。现在我使用Linux-x86-64 系统。是的，Linux 64位和DOS 16位系统有很大的区别。让我们开始吧。</p>
-<p>Every of us can understand what’s this C code does. But… How this code works at low level? I think that not all of us can answer on this question, and me too. I thought that i can write code on high level programming languages like Haskell, Erlang, Go and etc…, but i absolutely don’t know how it works at low level, after compilation. So I decided to take a few deep steps down, to assembly, and to describe my learning way about this. Hope it will be interesting, not only for me. Something about 5 - 6 years ago I already used assembly for writing simple programs, it was in university and i used Turbo assembly and DOS operating system. Now I use Linux-x86-64 operating system. Yes, must be big difference between Linux 64 bit and DOS 16 bit. So let’s start.</p>
-<h5 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h5><p>Preparation</p>
-<p>在我们开始前，我必须准备一些东西，例如我使用的Ubuntu(Ubuntu 14.04.1 LTS 64 bit)，因此我写的文章将针对这个操作系统和架构。不同的CPU支持不同的指令集，我使用的是 Intel Core i7 870 处理器，所有的代码都将由这个处理器所编写。我将使用nasm汇编，你可以使用下面命令安装：</p>
-<p>Before we started, we must to prepare some things like As I wrote about, I use Ubuntu (Ubuntu 14.04.1 LTS 64 bit), thus my posts will be for this operating system and architecture. Different CPU supports different set of instructions. I use Intel Core i7 870 processor, and all code will be written processor. Also i will use nasm assembly. You can install it with:</p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nasm</code></pre>
-<p>它的版本必须是2.0.0或者更高版本。我2013年12月29日编译的NASM版本是2.10.09。最后一部分，需要在文本编辑器中编写汇编代码。我使用Emacs配合nasm-mode.el来进行编写。当然你可以选择你喜欢的编辑器。如果你和我一样使用Emacs，你可以下载nasm-mode.el 并配置你的Emacs像这样：</p>
-<p>It’s version must be 2.0.0 or greater. I use NASM version 2.10.09 compiled on Dec 29 2013 version. And the last part, you will need in text editor where you will write you assembly code. I use Emacs with nasm-mode.el for this. It is not mandatory, of course you can use your favourite text editor. If you use Emacs as me you can download nasm-mode.el and configure your Emacs like this:</p>
-<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">(load</span> <span class="token attr-value">"~/.emacs.d/lisp/nasm.el")</span>
-<span class="token attr-name">(require</span> <span class="token attr-value">'nasm-mode)</span>
-<span class="token attr-name">(add-to-list</span> <span class="token attr-value">'auto-mode-alist '("\\.\\(asm\\|s\\)$" . nasm-mode))</span></code></pre>
-<p>这就是我们现在所需要的。其他工具将在下一篇文章中描述。</p>
-<p>That’s all we need for this moment. Other tools will be describe in next posts.</p>
-<h5 id="nasm汇编的语法"><a href="#nasm汇编的语法" class="headerlink" title="nasm汇编的语法"></a>nasm汇编的语法</h5><p>Syntax of nasm assembly</p>
-<p>在这里，我不会描述完整的汇编语法，我们将只提到我们在本文中使用到的部分语法。通常NASM程序分为几个部分。在本文中，我们将讨论以下两个部分：</p>
-<p>Here I will not describe full assembly syntax, we’ll mention only those parts of the syntax, which we will use in this post. Usually NASM program divided into sections. In this post we’ll meet 2 following sections:</p>
-<ul>
-<li><p>数据段</p>
-</li>
-<li><p>文本段</p>
-</li>
-<li><p>data section</p>
-</li>
-<li><p>text section</p>
-</li>
-</ul>
-<p>数据段用于声明常量。此数据在运行时不会更改。您可以声明各种数学或其他常量等。声明数据段的语法为：</p>
-<p>The data section is used for declaring constants. This data does not change at runtime. You can declare various math or other constants and etc… The syntax for declaring data section is:</p>
-<pre class=" language-nasm"><code class="language-nasm"><span class="token keyword">section .data</span> </code></pre>
-<p>文本部分用于代码。本节必须以声明global-start开始，它告诉内核程序执行的开始位置。</p>
-<p>The text section is for code. This section must begin with the declaration global _start, which tells the kernel where the program execution begins.</p>
-<pre class=" language-nasm"><code class="language-nasm">    <span class="token keyword">section .text</span>
-    <span class="token keyword">global _start</span>
-    <span class="token label function">_start:</span></code></pre>
-<p>注释以；符号开头。每个NASM源代码行都包含以下四个字段的某些组合：</p>
-<p>Comments starts with the ; symbol. Every NASM source code line contains some combination of the following four fields:</p>
-<pre class=" language-nasm"><code class="language-nasm"><span class="token operator">[</span>label:<span class="token operator">]</span> instruction <span class="token operator">[</span>operands<span class="token operator">]</span> <span class="token operator">[</span><span class="token comment" spellcheck="true">; comment]</span></code></pre>
-<p>方括号中的字段是可选的。基本的NASM指令由两部分组成。第一个是要执行的指令的名称，第二个是这个命令的操作数。例如：</p>
-<p>Fields which are in square brackets are optional. A basic NASM instruction consists from two parts. The first one is the name of the instruction which is to be executed, and the second are the operands of this command. For example:</p>
-<pre class=" language-nasm"><code class="language-nasm">MOV COUNT, <span class="token number">48</span> <span class="token comment" spellcheck="true">; Put value 48 in the COUNT variable</span></code></pre>
-<h5 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h5><p>Hello world</p>
-<p>让我们用NASM汇编编写第一个程序。当然，这将是传统的Hello world程序。这是它的代码：</p>
-<p>Let’s write first program with NASM assembly. And of course it will be traditional Hello world program. Here is the code of it:</p>
-<pre class=" language-nasm"><code class="language-nasm"><span class="token keyword">section .data</span>
-    msg db      <span class="token string">"hello, world!"</span>
+int main() {
+    char* str = "Hello World\n";
+    int len = strlen(str);
+    printHelloWorld(str, len);
+    return 0;
+}</code></pre>
+<p>在这里我们可以看到定义了两个变量的C代码：我们将要写入stdout的Hello world字符串和这个字符串的长度。接下来我们调用printHelloWorld汇编函数，并将这两个变量作为参数。当我们使用x86_64Linux时，我们必须知道x86_64Linux调用转换，所以我们将知道如何编写printHelloWorld函数，如何获取传入参数等…当我们调用函数时，前六个参数通过rdi、rsi、rdx、rcx、r8和r9通用寄存器，所有其他都通过堆栈。因此，我们可以从rdi和rsi寄存器中获取第一个和第二个参数，并调用写入 syscall并使用ret指令从函数返回：</p>
+<p>Here we can see C code which defines two variables: our Hello world string which we will write to stdout and length of this string. Next we call printHelloWorld assembly function with this 2 variables as parameters. As we use x86_64 Linux, we must know x86_64 linux calling convetions, so we will know how to write printHelloWorld function, how to get incoming parameters and etc… When we call function first six parameters passes through rdi, rsi, rdx, rcx, r8 and r9 general purpose registers, all another through the stack. So we can get first and second parameter from rdi and rsi registers and call write syscall and than return from function with ret instruction:</p>
+<pre class=" language-assembly"><code class="language-assembly">global printHelloWorld
 
-<span class="token keyword">section .text</span>
-    <span class="token keyword">global _start</span>
-<span class="token label function">_start:</span>
-    mov     <span class="token register variable">rax</span>, <span class="token number">1</span>
-    mov     <span class="token register variable">rdi</span>, <span class="token number">1</span>
-    mov     <span class="token register variable">rsi</span>, msg
-    mov     <span class="token register variable">rdx</span>, <span class="token number">13</span>
-    syscall
-    mov    <span class="token register variable">rax</span>, <span class="token number">60</span>
-    mov    <span class="token register variable">rdi</span>, <span class="token number">0</span>
-    syscall</code></pre>
-<p>是的，它看起来不像printf（“Hello world”）。让我们试着了解它是什么以及它是如何工作的。看1-2行。我们定义了data section并将msg常量与Hello world值放在一起。现在我们可以在代码中使用这个常量。接下来是声明文本段和程序入口点。程序将从7行开始执行。现在开始最有趣的部分。我们已经知道它是mov指令了，它有两个操作数，然后把值从第二个放到第一个。但这些rax，rdi…是什么,我们可以在维基百科上看到:</p>
-<p>Yes, it doesn’t look like printf(“Hello world”). Let’s try to understand what is it and how it works. Take a look 1-2 lines. We defined data section and put there msg constant with Hello world value. Now we can use this constant in our code. Next is declaration text section and entry point of program. Program will start to execute from 7 line. Now starts the most interesting part. We already know what is it mov instruction, it gets 2 operands and put value of second to first. But what is it these rax, rdi and etc… As we can read in the wikipedia:</p>
-<pre><code>中央处理器（CPU）是计算机内部的硬件，它通过执行系统的基本算术、逻辑和输入/输出操作来执行计算机程序的指令。</code></pre><pre><code>A central processing unit (CPU) is the hardware within a computer that carries out the instructions of a computer program by performing the basic arithmetical, logical, and input/output operations of the system.</code></pre><p>好的，CPU执行一些操作，算术等… 但是它从哪里可以得到这些操作的数据呢？第一个答案就是内存。然而，读取数据并将数据存储到内存中会减慢处理器的速度，因为它涉及通过控制总线发送数据请求的复杂过程。因此，CPU有自己的内部内存存储位置，称为寄存器：</p>
-<p>Ok, CPU performs some operations, arithmetical and etc… But where can it get data for this operations? The first answer in memory. However, reading data from and storing data into memory slows down the processor, as it involves complicated processes of sending the data request across the control bus. Thus CPU has own internal memory storage locations called registers:</p>
-<p>所以当我们写mov rax，1时，它的意思是把1放到rax寄存器中。现在我们知道什么是rax，rdi，rbx等等…但需要知道何时使用rax，何时rsi等等…</p>
-<p>So when we write mov rax, 1, it means to put 1 to the rax register. Now we know what is it rax, rdi, rbx and etc… But need to know when to use rax but when rsi and etc…</p>
+section .text
+printHelloWorld:
+        ;; 1 arg
+        mov r10, rdi
+        ;; 2 arg
+        mov r11, rsi
+        ;; call write syscall
+        mov rax, 1
+        mov rdi, 1
+        mov rsi, r10
+        mov rdx, r11
+        syscall
+        ret</code></pre>
+<p>现在我们可以构建它;</p>
+<p>Now we can build it with:</p>
+<pre><code>build:
+    nasm -f elf64 -o casm.o casm.asm
+    gcc casm.o casm.c -o casm</code></pre><h4 id="内联汇编"><a href="#内联汇编" class="headerlink" title="内联汇编"></a>内联汇编</h4><p>Inline assembly</p>
+<p>下面的方法是直接在C代中码编写汇编代码。这里有特殊的语法。它的总体观点是：</p>
+<p>The following method is to write assembly code directly in C code. There is special syntax for this. It has general view:</p>
+<pre><code>asm [volatile] (&quot;assembly code&quot; : output operand : input operand : clobbers);</code></pre><p>正如我们在gcc文档中看到的，volatile关键字意味着：</p>
+<p>As we can read in gcc documentation volatile keyword means:</p>
+<pre><code>扩展asm语句的典型用途是操作输入值以生成输出值。但是，你的asm语句也可能产生副作用。如果是，您可能需要使用volatile限定符来禁用某些优化</code></pre><pre><code>The typical use of Extended asm statements is to manipulate input values to produce output values. However, your asm statements may also produce side effects. If so, you may need to use the volatile qualifier to disable certain optimizations</code></pre><p>每个操作数由约束字符串和括号中的C表达式描述。有许多限制：</p>
+<p>Each operand is described by constraint string followed by C expression in parentheses. There are a number of constraints:</p>
 <ul>
-<li>rax - 临时寄存器；调用syscal时，rax必须包含syscall编号</li>
-<li>rdx - 用于将第三个参数传递给函数</li>
-<li>rdi - 用于将第一个参数传递给函数</li>
-<li>rsi - 用于向函数传递第二个参数的指针</li>
-<li>rax - temporary register; when we call a syscal, rax must contain syscall number</li>
-<li>rdx - used to pass 3rd argument to functions</li>
-<li>rdi - used to pass 1st argument to functions</li>
-<li>rsi - pointer used to pass 2nd argument to functions</li>
-</ul>
-<p>换句话说，我们只是调用sys_write sys call。查看sys_write：</p>
-<p>In another words we just make a call of sys_write syscall. Take a look on sys_write:</p>
-<pre class=" language-c"><code class="language-c">size_t <span class="token function">sys_write</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span> buf<span class="token punctuation">,</span> size_t count<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>他有三个参数:</p>
-<p>It has 3 arguments:</p>
-<ul>
-<li><p>fd - 文件描述符。对应标准输入、标准输出和标准错误，可以是0、1和2</p>
+<li><p>r—通用寄存器中的保留变量值</p>
 </li>
-<li><p>buf - 指向字符数组，该数组可用于获取fd指向的文件内容。</p>
+<li><p>g—允许使用任何寄存器、内存或立即整数操作数，但不是通用寄存器的寄存器除外。</p>
 </li>
-<li><p>count - 指定要从文件写入字符数组的字节数</p>
+<li><p>f—浮点寄存器</p>
 </li>
-<li><p>fd - file descriptor. Can be 0, 1 and 2 for standard input, standard output and standard error</p>
+<li><p>m—允许使用内存操作数，通常使用计算机支持的任何类型的地址。</p>
 </li>
-<li><p>buf - points to a character array, which can be used to store content obtained from the file pointed to by fd.</p>
+<li><p>等等…</p>
 </li>
-<li><p>count - specifies the number of bytes to be written from the file into the character array</p>
+<li><p><code>r</code> - Kept variable value in general purpose register</p>
+</li>
+<li><p><code>g</code> - Any register, memory or immediate integer operand is allowed, except for registers that are not general registers.</p>
+</li>
+<li><p><code>f</code> - Floating point register</p>
+</li>
+<li><p><code>m</code> - A memory operand is allowed, with any kind of address that the machine supports in general.</p>
+</li>
+<li><p>and etc…</p>
 </li>
 </ul>
-<p>所以我们知道sys_write syscall有三个参数，在syscall表中是第一个。让我们再来看看我们的hello world实现。我们将1放入rax寄存器，这意味着我们将使用sys_write系统调用。在下一行中，我们将1放入rdi寄存器，它将是sys_write的第一个参数，1-标准输出。然后我们将指向msg的指针存储在rsi寄存器中，它将是sys_write的第二个buf参数。然后我们将最后一个（第三个）参数（字符串长度）传递给rdx，它将是sys_write的第三个参数。现在我们有了sys_write的所有参数，可以用sys call函数在11行调用它。好的，我们打印了“Hello World”字符串，现在需要正确地退出程序。我们传递60到RAX寄存器，60是一个信号退出syscall。并将0传递给rdi寄存器，它是错误代码，所以0表示我们的程序成功退出。这就是“你好世界”的全部内容。很简单：）现在让我们构建我们的程序。例如，hello.asm文件中有此代码。然后我们需要执行以下命令：</p>
-<p>So we know that sys_write syscall takes three arguments and has number one in syscall table. Let’s look again to our hello world implementation. We put 1 to rax register, it means that we will use sys_write system call. In next line we put 1 to rdi register, it will be first argument of sys_write, 1 - standard output. Then we store pointer to msg at rsi register, it will be second buf argument for sys_write. And then we pass the last (third) parameter (length of string) to rdx, it will be third argument of sys_write. Now we have all arguments of the sys_write and we can call it with syscall function at 11 line. Ok, we printed “Hello world” string, now need to do correctly exit from program. We pass 60 to rax register, 60 is a number of exit syscall. And pass also 0 to rdi register, it will be error code, so with 0 our program must exit successfully. That’s all for “Hello world”. Quite simple :) Now let’s build our program. For example we have this code in hello.asm file. Then we need to execute following commands:</p>
-<pre class=" language-bash"><code class="language-bash">$ nasm -f elf64 -o hello.o hello.asm
-$ ld -o hello hello.o</code></pre>
-<p>在它之后，我们将拥有可执行的hello文件，我们可以使用./hello运行它，并将在终端中看到hello world字符串。</p>
-<p>After it we will have executable hello file which we can run with ./hello and will see Hello world string in the terminal.</p>
+<p>所以我们的hello world是：</p>
+<p>So our hello world will be:</p>
+<pre class=" language-C"><code class="language-C">#include <string.h>
+
+int main() {
+    char* str = "Hello World\n";
+    long len = strlen(str);
+    int ret = 0;
+
+    __asm__("movq $1, %%rax \n\t"
+        "movq $1, %%rdi \n\t"
+        "movq %1, %%rsi \n\t"
+        "movl %2, %%edx \n\t"
+        "syscall"
+        : "=g"(ret)
+        : "g"(str), "g" (len));
+
+    return 0;
+}</code></pre>
+<p>这里我们可以看到与前面的示例和内联汇编定义中相同的2个变量。首先，我们将1放入rax和rdi寄存器（编写系统调用号和stdout），就像在我们的普通汇编hello world中那样。接下来，我们对rsi和rdi寄存器执行类似的操作，但第一个操作数以%symbol开始，而不是$。这意味着str是由%1引用的输出操作数，len是由%2引用的第二个输出操作数，因此我们用%n表示法将str和len的值放入rsi和rdi，其中n是输出操作数的个数。此外，寄存器名前面还有一个%%。</p>
+<p>Here we can see the same 2 variables as in previous example and inline assembly definition. First of all we put 1 to rax and rdi registers (write system call number, and stdout) as we did it in our plain assembly hello world. Next we do similar operation with rsi and rdi registers but first operands starts with % symbol instead $. It means str is the output operand referred by %1 and len second output operand referred by %2, so we put values of str and len to rsi and rdi with %n notation, where n is number of output operand. Also there is %% prefixed to the register name.</p>
+<pre><code>这有助于GCC区分操作数和寄存器。操作数有一个%作为前缀</code></pre><pre><code>    This helps GCC to distinguish between the operands and registers. operands have a single % as prefix</code></pre><p>我们可以用以下方法构建它：</p>
+<p>We can build it with:</p>
+<pre><code>build:
+    gcc casm.c -o casm</code></pre><h4 id="从汇编调用C"><a href="#从汇编调用C" class="headerlink" title="从汇编调用C"></a>从汇编调用C</h4><p>Call C from assembly</p>
+<p>最后一个方法是从汇编代码中调用C函数。例如，我们有以下简单的C代码，其中一个函数只打印Hello world：</p>
+<p>And the last method is to call C function from assembly code. For example we have following simple C code with one function which just prints Hello world:</p>
+<pre class=" language-C"><code class="language-C">#include <stdio.h>
+
+extern int print();
+
+int print() {
+    printf("Hello World\n");
+    return 0;
+}</code></pre>
+<p>现在，我们可以在汇编代码中将此函数定义为extern，并使用call指令调用它，就像我们在前面的文章中多次这样：</p>
+<p>Now we can define this function as extern in our assembly code and call it with call instruction as we do it much times in previous posts:</p>
+<pre class=" language-asssembly"><code class="language-asssembly">global _start
+
+extern print
+
+section .text
+
+_start:
+        call print
+
+        mov rax, 60
+        mov rdi, 0
+        syscall</code></pre>
+<p>构建它：</p>
+<p>Build it with:</p>
+<pre><code>build:
+    gcc  -c casm.c -o c.o
+    nasm -f elf64 casm.asm -o casm.o
+    ld   -dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc casm.o c.o -o casm</code></pre><p>现在我们可以运行第三个hello world了。</p>
+<p>and now we can run our third hello world.</p>
 
             </div>
             <hr/>
@@ -576,7 +599,7 @@ $ ld -o hello hello.o</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zhanweisun.github.io/2020/01/08/say-hello-to-x86-64-assembly-part-1/">http://zhanweisun.github.io/2020/01/08/say-hello-to-x86-64-assembly-part-1/</a>
+                    <a href="http://zhanweisun.github.io/2020/01/11/say-hello-to-x86-64-assembly-part-7/">http://zhanweisun.github.io/2020/01/11/say-hello-to-x86-64-assembly-part-7/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -797,26 +820,25 @@ $ ld -o hello hello.o</code></pre>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/01/09/say-hello-to-x86-64-assembly-part-2/">
+                <a href="/2020/01/11/say-hello-to-x86-64-assembly-part-8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Say hello to x86_64 Assembly [part 2]">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Say hello to x86_64 Assembly [part 8]">
                         
-                        <span class="card-title">Say hello to x86_64 Assembly [part 2]</span>
+                        <span class="card-title">Say hello to x86_64 Assembly [part 8]</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             翻译原文地址
-Say hello to x86_64 Assembly [part 2]几天前，我写了第一篇博文-介绍x64汇编-Say hello to x64 Assembly [part 1]，出乎我的意料，引起了极大的兴趣：
-Som
+Say hello to x86_64 Assembly [part 8]这是Say hello to x86_64 Assembly的第八部分，也是最后一部分，下面我们将介绍如何在汇编程序中使用非整数。使用浮点数据有两种方法
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-09
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-11
                         </span>
                         <span class="publish-author">
                             
@@ -856,32 +878,25 @@ Som
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/01/08/adb-chang-yong-ming-ling-ji-lu/">
+                <a href="/2020/01/11/say-hello-to-x86-64-assembly-part-6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="adb 常用命令记录">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Say hello to x86_64 Assembly [part 6]">
                         
-                        <span class="card-title">adb 常用命令记录</span>
+                        <span class="card-title">Say hello to x86_64 Assembly [part 6]</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-title: android 常用命令记录date: 2020-01-08 23:46:20tags: 
-
-android
-常用命令
-shell
-
-
-android 常用命令记录1.adb shell dumpsys meminfo查看指
+                            翻译原文地址
+Say hello to x86_64 Assembly [part 6]这是Say hello to x86_64 Assembly的第六部分，在这里我们将研究AT&amp;T汇编程序语法。以前我们在所有部分都使用nasm 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-11
                             </span>
                         <span class="publish-author">
                             
@@ -890,6 +905,26 @@ android 常用命令记录1.adb shell dumpsys meminfo查看指
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/x86/">
+                        <span class="chip bg-color">x86</span>
+                    </a>
+                    
+                    <a href="/tags/x64/">
+                        <span class="chip bg-color">x64</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%87%E7%BC%96/">
+                        <span class="chip bg-color">汇编</span>
+                    </a>
+                    
+                    <a href="/tags/assembly/">
+                        <span class="chip bg-color">assembly</span>
+                    </a>
+                    
                 </div>
                 
             </div>
