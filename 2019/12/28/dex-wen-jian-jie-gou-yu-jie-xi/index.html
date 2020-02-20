@@ -488,30 +488,30 @@
     kDexTypeEncodedArrayItem         <span class="token operator">=</span> <span class="token number">0x2005</span><span class="token punctuation">,</span>
     kDexTypeAnnotationsDirectoryItem <span class="token operator">=</span> <span class="token number">0x2006</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/DexMapListStruct.jpeg?raw=true" alt="DexMapListStruct"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/DexMapListStruct.jpg?raw=true" alt="DexMapListStruct"></p>
 <p>这个dex_map_list 结构保存在DEX文件的最末尾处，并且第一个字节就是保存的结构数量，也就是map_item的数量</p>
 <p>map_item结构如下图所示,单一结构长度位12个字节，其中前两个字节是描述对应的段类型，紧跟着的2个字节是对齐字节，无意义。接下来的4个字节是对应的段大小，最后的4个字节是对应的段偏移，以上就是关于mapoff对应的内容的解释</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/map_item.jpeg?raw=true" alt=""></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/map_item.jpg?raw=true" alt=""></p>
 <h5 id="stringIdsSize-amp-amp-stringIdsOff字段"><a href="#stringIdsSize-amp-amp-stringIdsOff字段" class="headerlink" title="stringIdsSize &amp;&amp; stringIdsOff字段"></a>stringIdsSize &amp;&amp; stringIdsOff字段</h5><p>这两个字段是用来标记所有字符串的，stringIdsSize标记字符串的数量，stringIdsOff标记字符串偏移的首地址，知道这两个数据以后，我们就可以进行字符串的解析了.</p>
 <pre class=" language-c"><code class="language-c"><span class="token keyword">struct</span> DexStringId <span class="token punctuation">{</span>
     u4 stringDataOff<span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">/* 字符串数据偏移 */</span>
 <span class="token punctuation">}</span></code></pre>
 <p>我们先看一下stringIdsOff 这个值，截图如下</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/string_ids_off.jpeg?raw=true" alt="string_ids_off"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/string_ids_off.jpg?raw=true" alt="string_ids_off"></p>
 <p>我们可以看到这个数值位 70 00 00 00,这个是不是很熟悉？我们去看一下，dex的header值是多少？ 是70H，因为我们这个数值存放的问题，实际这个偏移值就是70H。</p>
 <p>也就是说，我们的Dex头部的后面紧跟着就是字符串的相关数据了。我们接着说字符串数据的解析</p>
 <p>我们把结构选择到010Editor的第二个结构体，也就是struct string_id_list dex_string_ids这里，选中这个结构体我们可以看到这个结构的全部内容。如下</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/string_id_list.jpeg?raw=true" alt="string_id_list"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/string_id_list.jpg?raw=true" alt="string_id_list"></p>
 <p>这里的展开的每一个item就是一个字符串的索引，这里强调一下是索引。不是真正的字符串。这个值对应的是真正的字符串的偏移地址，我们后面需要用到的字符串，会通过这个索引进行查表找到对应的字符串。</p>
 <h5 id="typeIdsSize-amp-typeIdsOff"><a href="#typeIdsSize-amp-typeIdsOff" class="headerlink" title="typeIdsSize &amp; typeIdsOff"></a>typeIdsSize &amp; typeIdsOff</h5><p>类型区的大小和对应的类型名字的偏移索引。</p>
 <p>这个索引的起始地址就是typeIdsOff对应的值，这个值在我的dex文件上面是0x00 02 DD 9C,然后这个起始地址开始有6393个数据，我们现在跳转到对应的地址看一下。</p>
 <pre class=" language-c"><code class="language-c"><span class="token keyword">struct</span> DexTypeId <span class="token punctuation">{</span>
     u4 descriptorIdx<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">/* 指向 DexStringId列表的索引 */</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/type_ids_offset.jpeg?raw=true" alt="type_ids_offset"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/type_ids_offset.jpg?raw=true" alt="type_ids_offset"></p>
 <p>想要精准的跳到对应的地址，我们可以直接选择结构列表里面的struct type_id_list dex_type_ids,010Editor会自动帮我们定位到对应的位置,这个时候我们再来看一下这个结构的全部数据，已经被选中了.如果我们展开这个结构，下面是每一个item的索引和item的内部结构，我们可以数一下索引的值，我这里的是从0-6392,一共是6393个结构。所以这个刚好跟我们头部的数据是对应的。</p>
 <p>接下来我们看一些type_id_item的值，大家可以在010Editor里面进行查看。里面能够看到很多的类型,例如byte，float，还有这个dex中的类对应的类型</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/type_id.jpeg?raw=true" alt="type_id"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/type_id.jpg?raw=true" alt="type_id"></p>
 <h5 id="protoIdsSize-amp-protoIdsOff"><a href="#protoIdsSize-amp-protoIdsOff" class="headerlink" title="protoIdsSize &amp; protoIdsOff"></a>protoIdsSize &amp; protoIdsOff</h5><p>protoIdsOff指向了函数原型的偏移地址，主要的标记内容  方法声明=返回类型 + 参数列表，protoIds标记对应的数量.从对应的value里面，我们就能看到函数返回值，参数类型等函数原型的标记</p>
 <pre class=" language-c"><code class="language-c">zstruct DexProtoId <span class="token punctuation">{</span>
     u4 shortyIdx<span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">/* 指向DexStringId列表的索引 */</span>
@@ -527,7 +527,7 @@
 <span class="token keyword">struct</span> DexTypeItem <span class="token punctuation">{</span>
     u2 typeIdx<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">/* 指向DexTypeId列表的索引 */</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/proto_ids.jpeg?raw=true" alt="proto_ids"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/proto_ids.jpg?raw=true" alt="proto_ids"></p>
 <h5 id="field-ids-size-amp-field-ids-off"><a href="#field-ids-size-amp-field-ids-off" class="headerlink" title="field_ids_size &amp; field_ids_off"></a>field_ids_size &amp; field_ids_off</h5><p>field_ids_off偏移地址指向的结构数据全部是索引值，指明了字段所在的类、字段的类型以及字段名</p>
 <pre class=" language-c"><code class="language-c"><span class="token keyword">struct</span> DexFieldId <span class="token punctuation">{</span>
     u2 classIdx<span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">/* 类的类型，指向DexTypeId列表的索引 */</span>
@@ -535,7 +535,7 @@
     u4 nameIdx<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">/* 字段名，指向DexStringId列表的索引 */</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
 <p>具体请看下图,class_idx 这个field所属的类的索引值，type_idx是这个field对应的类型索引值,name_idx是这个字段的名称对应的索引值</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/field_id.jpeg?raw=true" alt="field_id"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/field_id.jpg?raw=true" alt="field_id"></p>
 <h6 id="method-ids-size-amp-method-ids-off"><a href="#method-ids-size-amp-method-ids-off" class="headerlink" title="method_ids_size &amp; method_ids_off"></a>method_ids_size &amp; method_ids_off</h6><p>method_ids_off 指定了函数方法的偏移位置，具体的字段如下代码所示</p>
 <pre class=" language-c"><code class="language-c"><span class="token keyword">struct</span> DexMethodId <span class="token punctuation">{</span>
     u2 classIdx<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">/* 类的类型，指向DexTypeId列表的索引 */</span>
@@ -546,10 +546,10 @@
 <p>protoIdx指向的是这个方法声明的原型字符串的索引</p>
 <p>nameIdx获取这个方法名称的字符串索引</p>
 <p> 有了这三个索引对应的字符串，我们就可以获取到正确的类，方法名，参数和返回值，还是使用我们的010Editor，我们打开method_id_list dex_method_ids这个结构下面的item，我们就可以看到这些数据获取以后，我们能知道的一些东西，具体看下图</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/method_idx.jpeg?raw=true" alt="method_idx"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/method_idx.jpg?raw=true" alt="method_idx"></p>
 <p>我们可以在结构体的最上面看到整个的方法原型，这个是由下面的三个字段对应的字符串值拼接成的，可以完整的看到方法的声明细节。</p>
 <h5 id="class-defs-size-amp-class-defs-off"><a href="#class-defs-size-amp-class-defs-off" class="headerlink" title="class_defs_size &amp; class_defs_off"></a>class_defs_size &amp; class_defs_off</h5><p>class_defs_off指向的是类定义的偏移地址，这里的类定义结构比较复杂，里面嵌套了很多层，我们先来看一下010Editor的结构</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/class_struct_item.jpeg?raw=true" alt="class_struct_item"></p>
+<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/class_struct_item.jpg?raw=true" alt="class_struct_item"></p>
 <p>在这个结构里面，我们能看到一些基本的信息，比如class_idx索引等等,访问的标志等等,</p>
 <p>class_def_item的结构如下</p>
 <pre class=" language-c"><code class="language-c">uint   <span class="token number">32</span><span class="token operator">-</span>bit <span class="token keyword">unsigned</span> <span class="token keyword">int</span><span class="token punctuation">,</span> little<span class="token operator">-</span>endian

@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Android面试之Handler相关学习, 孙老师">
-    <meta name="description" content="###Android面试之Handler相关学习
-1.Android消息机制之Looper.java源代码学习1). 准备阶段,在子线程中调用Looper.prepare()方法或者在主线程调用Looper.prepareMainLoope">
+    <meta name="keywords" content="Java泛型相关学习, 孙老师">
+    <meta name="description" content="Java泛型相关学习1.什么是泛型泛型，即”参数化类型”,在不创建新的类型的情况下,通过泛型指定不同类型来控制形参具体参数类型.这种参数类型可以用在类,接口,方法中,分别被称作泛型类,泛型接口,泛型方法.
+泛型只在编译阶段有效,参数的类型是">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Android面试之Handler相关学习 | 孙老师</title>
+    <title>Java泛型相关学习 | 孙老师</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -260,13 +260,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Android面试之Handler相关学习
+                        Java泛型相关学习
                     </div>
                 </div>
             </div>
@@ -384,24 +384,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/android/">
-                                <span class="chip bg-color">android</span>
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
                             </a>
                         
-                            <a href="/tags/Handler/">
-                                <span class="chip bg-color">Handler</span>
-                            </a>
-                        
-                            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">
-                                <span class="chip bg-color">面试题</span>
-                            </a>
-                        
-                            <a href="/tags/Looper/">
-                                <span class="chip bg-color">Looper</span>
-                            </a>
-                        
-                            <a href="/tags/MessageQueue/">
-                                <span class="chip bg-color">MessageQueue</span>
+                            <a href="/tags/%E6%B3%9B%E5%9E%8B/">
+                                <span class="chip bg-color">泛型</span>
                             </a>
                         
                     </div>
@@ -427,7 +415,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    2 分
                 </div>
                 
 				
@@ -443,156 +431,51 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>###Android面试之Handler相关学习</p>
-<h5 id="1-Android消息机制之Looper-java源代码学习"><a href="#1-Android消息机制之Looper-java源代码学习" class="headerlink" title="1.Android消息机制之Looper.java源代码学习"></a>1.Android消息机制之Looper.java源代码学习</h5><p>1). 准备阶段,在子线程中调用Looper.prepare()方法或者在主线程调用Looper.prepareMainLooper()方法来创建当前的Looper对象</p>
-<p>2).Looper对象内部会创建消息队列,代码如下</p>
-<pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">//Looper.java源代码</span>
-    <span class="token comment" spellcheck="true">// sThreadLocal.get() will return null unless you've called prepare().</span>
-        <span class="token comment" spellcheck="true">//sThreadLocal是当前子线程与绑定的Looper</span>
-    <span class="token keyword">static</span> <span class="token keyword">final</span> ThreadLocal<span class="token operator">&lt;</span>Looper<span class="token operator">></span> sThreadLocal <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadLocal</span><span class="token operator">&lt;</span>Looper<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> Looper sMainLooper<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// guarded by Looper.class</span>
+                <h3 id="Java泛型相关学习"><a href="#Java泛型相关学习" class="headerlink" title="Java泛型相关学习"></a>Java泛型相关学习</h3><h5 id="1-什么是泛型"><a href="#1-什么是泛型" class="headerlink" title="1.什么是泛型"></a>1.什么是泛型</h5><p>泛型，即”参数化类型”,在不创建新的类型的情况下,通过泛型指定不同类型来控制形参具体参数类型.这种参数类型可以用在类,接口,方法中,分别被称作泛型类,泛型接口,泛型方法.</p>
+<p>泛型只在编译阶段有效,参数的类型是在编译阶段就确定了,编译器会在生成的代码中是用确定的类型替换.</p>
+<h5 id="2-泛型类"><a href="#2-泛型类" class="headerlink" title="2.泛型类"></a>2.泛型类</h5><p>泛型类的最基本写法</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> 类名称 <span class="token operator">&lt;</span>泛型标识：可以随便写任意标识号，标识指定的泛型的类型<span class="token operator">></span><span class="token punctuation">{</span>
 
-    <span class="token keyword">final</span> MessageQueue mQueue<span class="token punctuation">;</span></code></pre>
-<p>我们在调用Looper.prepare()的时候会调用如下代码</p>
-<pre class=" language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">prepare</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">prepare</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Generic</span><span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">{</span> 
+    <span class="token comment" spellcheck="true">//key这个成员变量的类型为T,T的类型由外部指定  </span>
+    <span class="token keyword">private</span> T key<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Generic</span><span class="token punctuation">(</span>T key<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//泛型构造方法形参key的类型也为T，T的类型由外部指定</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>key <span class="token operator">=</span> key<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">prepare</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> quitAllowed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>sThreadLocal<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"Only one Looper may be created per thread"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        sThreadLocal<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Looper</span><span class="token punctuation">(</span>quitAllowed<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这里会产生一个Looper实例,Looper里面包含有mQueue</span>
-    <span class="token punctuation">}</span></code></pre>
-<p>主线程MainLooper产生的代码,由Android环境调用产生,不需要我们手工调用</p>
-<pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
-     * Initialize the current thread as a looper, marking it as an
-     * application's main looper. The main looper for your application
-     * is created by the Android environment, so you should never need
-     * to call this function yourself.  See also: {@link #prepare()}
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">prepareMainLooper</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">prepare</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>Looper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>sMainLooper <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">"The main Looper has already been prepared."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            sMainLooper <span class="token operator">=</span> <span class="token function">myLooper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> T <span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//泛型方法getKey的返回值类型为T，T的类型由外部指定</span>
+        <span class="token keyword">return</span> key<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">/**
-     * Returns the application's main looper, which lives in the main thread of the application.
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> Looper <span class="token function">getMainLooper</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>Looper<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> sMainLooper<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span></code></pre>
-<p>Looper.loop()代码都做了什么,我们来仔细阅读一下,我会加入响应的一些注释.</p>
-<pre class=" language-java"><code class="language-java"> <span class="token comment" spellcheck="true">/**
-     * Run the message queue in this thread. Be sure to call
-     * {@link #quit()} to end the loop.
-     * 返回当前线程的消息队列,确定在结束Loop的时候调用quit(),后面我们再来分析quit()做了什么
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">final</span> Looper me <span class="token operator">=</span> <span class="token function">myLooper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//获取当前线程的looper</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>me <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment" spellcheck="true">//looper为空就抛出异常</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"No Looper; Looper.prepare() wasn't called on this thread."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">//获取到looper对应的消息队列</span>
-        <span class="token keyword">final</span> MessageQueue queue <span class="token operator">=</span> me<span class="token punctuation">.</span>mQueue<span class="token punctuation">;</span>
-
-        <span class="token comment" spellcheck="true">// Make sure the identity of this thread is that of the local process,</span>
-        <span class="token comment" spellcheck="true">// and keep track of what that identity token actually is.</span>
-        Binder<span class="token punctuation">.</span><span class="token function">clearCallingIdentity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">final</span> <span class="token keyword">long</span> ident <span class="token operator">=</span> Binder<span class="token punctuation">.</span><span class="token function">clearCallingIdentity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//为了方便查看,我删除了一些不相关代码</span>
-                <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-                <span class="token comment" spellcheck="true">//重点循环,主要的内容在下面</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            Message msg <span class="token operator">=</span> queue<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// might block ,取出消息体,有可能阻塞线程,当没有消息的时候会阻塞线程</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>msg <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// No message indicates that the message queue is quitting.</span>
-                <span class="token keyword">return</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-
-            <span class="token comment" spellcheck="true">//为了方便查看,我删除了一些不相关代码</span>
-                    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-
-            <span class="token keyword">final</span> <span class="token keyword">long</span> dispatchStart <span class="token operator">=</span> needStartTime <span class="token operator">?</span> SystemClock<span class="token punctuation">.</span><span class="token function">uptimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-            <span class="token keyword">final</span> <span class="token keyword">long</span> dispatchEnd<span class="token punctuation">;</span>
-            <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                msg<span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">dispatchMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//分配消息,其实这个才是最重要的. msg.target是一个handler,handler的分配消息被调用,而且因为这个是在一个for的死循环里面,所以这个就是不停的再获取队列消息并分配出去</span>
-                dispatchEnd <span class="token operator">=</span> needEndTime <span class="token operator">?</span> SystemClock<span class="token punctuation">.</span><span class="token function">uptimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-              <span class="token comment" spellcheck="true">//为了方便查看,我删除了一些不相关代码</span>
-                            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-            <span class="token punctuation">}</span>
-            <span class="token comment" spellcheck="true">//为了方便查看,我删除了一些不相关代码</span>
-                        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-
-            <span class="token comment" spellcheck="true">// Make sure that during the course of dispatching the</span>
-            <span class="token comment" spellcheck="true">// identity of the thread wasn't corrupted.</span>
-            <span class="token keyword">final</span> <span class="token keyword">long</span> newIdent <span class="token operator">=</span> Binder<span class="token punctuation">.</span><span class="token function">clearCallingIdentity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">//为了方便查看,我删除了一些不相关代码</span>
-                        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-            msg<span class="token punctuation">.</span><span class="token function">recycleUnchecked</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span></code></pre>
-<p>3).使用线程对应的Handler发送消息</p>
-<p>我们可以调用handler的sendMessage()发送到Message到MessageQueue并唤醒阻塞的MessageQueue</p>
-<h5 id="2-一个线程能否创建多个Handler-Handler与Looper的对应关系"><a href="#2-一个线程能否创建多个Handler-Handler与Looper的对应关系" class="headerlink" title="2.一个线程能否创建多个Handler?Handler与Looper的对应关系?"></a>2.一个线程能否创建多个Handler?Handler与Looper的对应关系?</h5><p>我们可以从1中的代码发现,线程与Looper之间的关系,在prepare()方法内,代码的关联是针对线程和Looper的,Handler发送消息的时候是使用enqueueMessage方法,将消息传递到Looper的队列中的,消息到达队列以后,会在loop方法中执行获取消息 Message msg = queue.next();  方法,并使用 msg.target.dispatchMessage(msg); 分配消息出去,其中,target是handler.</p>
-<pre class=" language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">prepare</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> quitAllowed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>sThreadLocal<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"Only one Looper may be created per thread"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        sThreadLocal<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Looper</span><span class="token punctuation">(</span>quitAllowed<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这里会产生一个Looper实例,Looper里面包含有mQueue</span>
-    <span class="token punctuation">}</span></code></pre>
-<p>总结:</p>
-<p>一个线程可以创建多个Handler,但是只会有一个Looper并对应一个内含的MessageQueue.Handler与Looper之间没有直接对应关系</p>
-<p>Handler通过sendMessage发送消息时，就会将handler对象存储到message中，然后Looper在loop中通过MessageQueue的next方法取出消息后，会通过之前消息封装的handler将消息发送到指定的handler，即通过调用msg.target.dispatchMessage方法</p>
-<h5 id="3-Handler引起内存泄露的一些情况以及应对策略"><a href="#3-Handler引起内存泄露的一些情况以及应对策略" class="headerlink" title="3.Handler引起内存泄露的一些情况以及应对策略"></a>3.Handler引起内存泄露的一些情况以及应对策略</h5><p>1).在handler的handleMessage内进行了对activity的引用,同时又使用了handler发送延时消息的情况.会在当前引用的Activity销毁的时候引起内存泄露问题,具体情况如下</p>
+<span class="token punctuation">}</span></code></pre>
+<h5 id="3-泛型接口"><a href="#3-泛型接口" class="headerlink" title="3.泛型接口"></a>3.泛型接口</h5><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//定义一个泛型接口</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Generator</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> T <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>实现一个泛型接口</p>
 <pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
-* 下面的情况会导致handler对Activity的一个引用
-*/</span>
-<span class="token keyword">private</span> Handler handler <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token annotation punctuation">@Override</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleMessage</span><span class="token punctuation">(</span>Message msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">handleMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Toast<span class="token punctuation">.</span><span class="token function">makeText</span><span class="token punctuation">(</span>DemoActivity<span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token string">"内存泄露测试"</span><span class="token punctuation">,</span> Toast<span class="token punctuation">.</span>LENGTH_LONG<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">//当我们用Handler.sendMessageDelay等方法延迟发送消息的时候,Activity关闭了,这就会导致DemoActivity.this的引用无法被释放.</span></code></pre>
-<p>正确做法如下</p>
-<pre class=" language-java"><code class="language-java">    <span class="token comment" spellcheck="true">//正确情况,先要保证销毁Activity的时候,去除所有的callback和mesage</span>
+ * 未传入泛型实参时，与泛型类的定义相同，在声明类的时候，需将泛型的声明也一起加到类中
+ * 即：class FruitGenerator&lt;T> implements Generator&lt;T>{
+ * 如果不声明泛型，如：class FruitGenerator implements Generator&lt;T>，编译器会报错："Unknown class"
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">FruitGenerator</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token keyword">implements</span> <span class="token class-name">Generator</span><span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">{</span>
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>handler<span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
-            handler<span class="token punctuation">.</span><span class="token function">removeCallbacksAndMessages</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> T <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-
-
-        <span class="token comment" spellcheck="true">//在handler内是使用引用的时候,也要注意使用弱引用而不是直接使用对应的Activity.这样保证在Activity销毁的时候可以正确被释放,如果是使用runnable,而且是非静态内部类,也会造成类似的内存泄露,所以解决方案类似.</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MyHandler</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span><span class="token punctuation">{</span>
-        <span class="token keyword">private</span> WeakReference<span class="token operator">&lt;</span>MainActivity<span class="token operator">></span>reference<span class="token punctuation">;</span>
-        <span class="token keyword">public</span> <span class="token function">MyHandler</span><span class="token punctuation">(</span>MainActivity activity<span class="token punctuation">)</span><span class="token punctuation">{</span>
-            reference <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WeakReference</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>activity<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token annotation punctuation">@Override</span>
-        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleMessage</span><span class="token punctuation">(</span>Message msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">handleMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            MainActivity activity <span class="token operator">=</span> reference<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>activity<span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
-                Toast<span class="token punctuation">.</span><span class="token function">makeText</span><span class="token punctuation">(</span>activity<span class="token punctuation">,</span> <span class="token string">"测试"</span><span class="token punctuation">,</span> Toast<span class="token punctuation">.</span>LENGTH_SHORT<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                activity<span class="token punctuation">.</span>tv<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span><span class="token string">"测试"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span></code></pre>
+<span class="token punctuation">}</span></code></pre>
+<h5 id="4-泛型通配符"><a href="#4-泛型通配符" class="headerlink" title="4.泛型通配符"></a>4.泛型通配符</h5><p>类型通配符一般是使用?代表具体的类型实参,实际使用的时候可以是对应的类型,可以代表所有类型的父类.</p>
+<h5 id="5-泛型方法可变参数"><a href="#5-泛型方法可变参数" class="headerlink" title="5.泛型方法可变参数"></a>5.泛型方法可变参数</h5><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token keyword">void</span> <span class="token function">printMsg</span><span class="token punctuation">(</span> T<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>T t <span class="token operator">:</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"泛型测试"</span><span class="token punctuation">,</span><span class="token string">"t is "</span> <span class="token operator">+</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h5 id="6-泛型边界限制"><a href="#6-泛型边界限制" class="headerlink" title="6.泛型边界限制"></a>6.泛型边界限制</h5><p>有时候我们要对泛型的类型进行限制,必须是某一些类型而不是全部类型,就需要用到泛型边界</p>
+<p>例子</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">showKeyValue1</span><span class="token punctuation">(</span>Generic<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Number</span><span class="token operator">></span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"泛型测试"</span><span class="token punctuation">,</span><span class="token string">"key value is "</span> <span class="token operator">+</span> obj<span class="token punctuation">.</span><span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 
             </div>
             <hr/>
@@ -618,7 +501,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zhanweisun.github.io/2020/02/12/android-mian-shi-zhi-handler-xiang-guan-xue-xi/">http://zhanweisun.github.io/2020/02/12/android-mian-shi-zhi-handler-xiang-guan-xue-xi/</a>
+                    <a href="http://zhanweisun.github.io/2020/02/12/java-fan-xing-xiang-guan-xue-xi/">http://zhanweisun.github.io/2020/02/12/java-fan-xing-xiang-guan-xue-xi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -656,24 +539,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/android/">
-                                    <span class="chip bg-color">android</span>
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
                                 </a>
                             
-                                <a href="/tags/Handler/">
-                                    <span class="chip bg-color">Handler</span>
-                                </a>
-                            
-                                <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">
-                                    <span class="chip bg-color">面试题</span>
-                                </a>
-                            
-                                <a href="/tags/Looper/">
-                                    <span class="chip bg-color">Looper</span>
-                                </a>
-                            
-                                <a href="/tags/MessageQueue/">
-                                    <span class="chip bg-color">MessageQueue</span>
+                                <a href="/tags/%E6%B3%9B%E5%9E%8B/">
+                                    <span class="chip bg-color">泛型</span>
                                 </a>
                             
                         </div>
@@ -839,10 +710,9 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2020/02/12/android-mian-shi-zhi-handler-xiang-guan-xue-xi/">
                     <div class="card-image">
@@ -861,9 +731,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-12
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -872,7 +742,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -907,25 +776,25 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/12/java-fan-xing-xiang-guan-xue-xi/">
+                <a href="/2020/01/11/say-hello-to-x86-64-assembly-part-8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Java泛型相关学习">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Say hello to x86_64 Assembly [part 8]">
                         
-                        <span class="card-title">Java泛型相关学习</span>
+                        <span class="card-title">Say hello to x86_64 Assembly [part 8]</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java泛型相关学习1.什么是泛型泛型，即”参数化类型”,在不创建新的类型的情况下,通过泛型指定不同类型来控制形参具体参数类型.这种参数类型可以用在类,接口,方法中,分别被称作泛型类,泛型接口,泛型方法.
-泛型只在编译阶段有效,参数的类型是
+                            翻译原文地址
+Say hello to x86_64 Assembly [part 8]这是Say hello to x86_64 Assembly的第八部分，也是最后一部分，下面我们将介绍如何在汇编程序中使用非整数。使用浮点数据有两种方法
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-11
                             </span>
                         <span class="publish-author">
                             
@@ -938,12 +807,20 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/x86/">
+                        <span class="chip bg-color">x86</span>
                     </a>
                     
-                    <a href="/tags/%E6%B3%9B%E5%9E%8B/">
-                        <span class="chip bg-color">泛型</span>
+                    <a href="/tags/x64/">
+                        <span class="chip bg-color">x64</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B1%87%E7%BC%96/">
+                        <span class="chip bg-color">汇编</span>
+                    </a>
+                    
+                    <a href="/tags/assembly/">
+                        <span class="chip bg-color">assembly</span>
                     </a>
                     
                 </div>
