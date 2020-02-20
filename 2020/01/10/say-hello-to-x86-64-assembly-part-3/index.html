@@ -534,7 +534,7 @@ The stack is special region in memory, whic">
         <span class="token comment" spellcheck="true">;;</span></code></pre>
 <p>这里我们可以看到，我们把1放到rax寄存器，2放到rdx寄存器。之后，我们推送这些寄存器的值到堆栈中。堆栈起后进先出的作用。因此，在这个堆栈之后，我们的应用程序将具有以下结构：</p>
 <p>Here we can see that we put 1 to rax register and 2 to rdx register. After it we push to stack values of these registers. Stack works as LIFO (Last In First Out). So after this stack or our application will have following structure:</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/Diagram.png?raw=true" alt="Diagram"></p>
+<p><img src="https://zhanweisun.github.io/image/Diagram.png?raw=true" alt="Diagram"></p>
 <p>然后我们从地址为rsp+8的堆栈中复制值。这意味着我们得到栈顶的地址，再加上8，然后按这个地址将数据复制到rax。之后rax值为1。</p>
 <p>Then we copy value from stack which has address rsp + 8. It means we get address of top of stack, add 8 to it and copy data by this address to rax. After it rax value will be 1.</p>
 <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>Example</p>

@@ -538,7 +538,7 @@ R8会扫描程序，并分析知道MyActivity根本没有被继承，即使你�
 <p>优化（Optimize）:在优化处理这一步中，对字节码进行优化，并且移除无用指令。 </p>
 <p>混淆（Obfuscate）:在混淆处理这一步中，使用a,b,c等无意义的名称，对类，字段和方法进行重命名。 </p>
 <p>预检（Preveirfy）:在预检这一步中，主要是在Java平台上对处理后的代码进行预检。</p>
-<p><img src="https://github.com/zhanweisun/zhanweisun.github.io/blob/master/image/proguard.jpg?raw=true" alt=""></p>
+<p><img src="https://zhanweisun.github.io/image/proguard.jpg?raw=true" alt=""></p>
 <h3 id="2-proguard-rules-pro-混淆配置"><a href="#2-proguard-rules-pro-混淆配置" class="headerlink" title="2.proguard-rules.pro 混淆配置"></a>2.proguard-rules.pro 混淆配置</h3><h5 id="keep-选项"><a href="#keep-选项" class="headerlink" title="keep 选项"></a>keep 选项</h5><pre class=" language-properties"><code class="language-properties"><span class="token attr-name">-keep</span> <span class="token attr-value">[,modifier，...] class_specification</span>
 指定需要保留的类和类成员（作为公共类库，应该保留所有可公开访问的public方法）
 
