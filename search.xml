@@ -30,19 +30,6 @@
     
     
     <entry>
-      <title>ARM ASM汇编语言学习整理</title>
-      <link href="/2020/02/27/arm-asm-hui-bian-yu-yan-xue-xi-zheng-li/"/>
-      <url>/2020/02/27/arm-asm-hui-bian-yu-yan-xue-xi-zheng-li/</url>
-      
-        <content type="html"><![CDATA[<h2 id="ARM-ASM汇编语言学习整理"><a href="#ARM-ASM汇编语言学习整理" class="headerlink" title="ARM ASM汇编语言学习整理"></a>ARM ASM汇编语言学习整理</h2><h3 id="1-汇编语言基本格式"><a href="#1-汇编语言基本格式" class="headerlink" title="1.汇编语言基本格式"></a>1.汇编语言基本格式</h3><p>{label} {instruction | directive | pseudo-instruction} {;comment}</p><p>指令助记符,指令,符号和寄存器名称可以是大写或者小写,但是不能混合使用</p><p>如果代码指令比较长,可以在行尾添加反斜杠符 (),拆分源代码为多行,但是请不要在带引号的字符串内使用</p><h5 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h5><p>标签是表示地址的符号,汇编期间会计算为指定的地址,引用同一节内的标签时可以用PC加上或者减去偏移</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Android面试之Handler相关学习</title>
       <link href="/2020/02/12/android-mian-shi-zhi-handler-xiang-guan-xue-xi/"/>
       <url>/2020/02/12/android-mian-shi-zhi-handler-xiang-guan-xue-xi/</url>
