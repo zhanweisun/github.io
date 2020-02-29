@@ -4,9 +4,16 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="无需权限获取应用程序列表, 孙老师">
-    <meta name="description" content="无需权限获取应用程序列表最近在研究反编译的时候发现了系统的一种漏洞方式获取应用程序信息,这个可以无需任何权限,用户无任何感知的获取全部应用程序列表,这对于一些特别需要知道用户手机内是否安装了某些特定应用的的人来说真的是太好了.
-经过我自己的">
+    <meta name="keywords" content="在Ubuntu下面解压缩分卷的Android系统源代码, 孙老师">
+    <meta name="description" content="
+title: 在Ubuntu下面解压缩分卷的Android系统源代码并编译date: 2020-02-29 21:10:11tags: 
+
+android
+zip压缩分卷
+系统源代码
+
+
+在Ubuntu下面解压缩分卷的Android系统源">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +21,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>无需权限获取应用程序列表 | 孙老师</title>
+    <title>在Ubuntu下面解压缩分卷的Android系统源代码 | 孙老师</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -260,13 +267,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        无需权限获取应用程序列表
+                        在Ubuntu下面解压缩分卷的Android系统源代码
                     </div>
                 </div>
             </div>
@@ -382,21 +389,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/android/">
-                                <span class="chip bg-color">android</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%BA%94%E7%94%A8%E5%88%97%E8%A1%A8/">
-                                <span class="chip bg-color">应用列表</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%9D%83%E9%99%90/">
-                                <span class="chip bg-color">权限</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -408,7 +403,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-12-29
+                    2020-02-29
                 </div>
                 
 
@@ -419,7 +414,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 				
@@ -435,32 +430,38 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="无需权限获取应用程序列表"><a href="#无需权限获取应用程序列表" class="headerlink" title="无需权限获取应用程序列表"></a>无需权限获取应用程序列表</h3><p>最近在研究反编译的时候发现了系统的一种漏洞方式获取应用程序信息,这个可以无需任何权限,用户无任何感知的获取全部应用程序列表,这对于一些特别需要知道用户手机内是否安装了某些特定应用的的人来说真的是太好了.</p>
-<p>经过我自己的实验,华为三星等手机没有任何问题.简单的跟大家分享一下我的研究成果.</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">getPackageList</span><span class="token punctuation">(</span>Context ctx<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"TAG"</span><span class="token punctuation">,</span> <span class="token string">"无需权限获取应用列表"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        PackageManager v9 <span class="token operator">=</span> ctx<span class="token punctuation">.</span><span class="token function">getPackageManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String<span class="token punctuation">[</span><span class="token punctuation">]</span> v2 <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        <span class="token keyword">int</span> uid <span class="token operator">=</span> <span class="token number">1000</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>uid <span class="token operator">&lt;=</span> <span class="token number">19999</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            v2 <span class="token operator">=</span> v9<span class="token punctuation">.</span><span class="token function">getPackagesForUid</span><span class="token punctuation">(</span>uid<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>v2 <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> v2<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">for</span> <span class="token punctuation">(</span>String item <span class="token operator">:</span> v2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                        <span class="token keyword">final</span> PackageInfo v6 <span class="token operator">=</span> v9<span class="token punctuation">.</span><span class="token function">getPackageInfo</span><span class="token punctuation">(</span>item<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                        <span class="token keyword">if</span> <span class="token punctuation">(</span>v6 <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                            <span class="token keyword">break</span><span class="token punctuation">;</span>
-                        <span class="token punctuation">}</span>
-                        CharSequence v7 <span class="token operator">=</span> v9<span class="token punctuation">.</span><span class="token function">getApplicationLabel</span><span class="token punctuation">(</span>v9<span class="token punctuation">.</span><span class="token function">getApplicationInfo</span><span class="token punctuation">(</span>v6<span class="token punctuation">.</span>packageName<span class="token punctuation">,</span> PackageManager<span class="token punctuation">.</span>GET_META_DATA<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string">"TAG"</span><span class="token punctuation">,</span> <span class="token string">"应用名称 = "</span> <span class="token operator">+</span> v7<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" ("</span> <span class="token operator">+</span> v6<span class="token punctuation">.</span>packageName <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">PackageManager<span class="token punctuation">.</span>NameNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token punctuation">}</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-            uid<span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span></code></pre>
+                <hr>
+<p>title: 在Ubuntu下面解压缩分卷的Android系统源代码并编译<br>date: 2020-02-29 21:10:11<br>tags: </p>
+<ul>
+<li>android</li>
+<li>zip压缩分卷</li>
+<li>系统源代码</li>
+</ul>
+<hr>
+<h3 id="在Ubuntu下面解压缩分卷的Android系统源代码"><a href="#在Ubuntu下面解压缩分卷的Android系统源代码" class="headerlink" title="在Ubuntu下面解压缩分卷的Android系统源代码"></a>在Ubuntu下面解压缩分卷的Android系统源代码</h3><p>最近在翻阅Android系统底层代码，本来打算解压缩到一个ntfs分区，遇到了一些问题，特意记录下来，防止再次犯错</p>
+<h5 id="1-解压缩分卷"><a href="#1-解压缩分卷" class="headerlink" title="1.解压缩分卷"></a>1.解压缩分卷</h5><p>我拿到手里的代码是一个高通8909的系统代码，而且我有对应的硬件，所以研究这个代码，我可以刷机，测试各种我对系统的修改。自然看这份代码比直接查看google的官方代码更有好处。</p>
+<p>但是当我拿到这份代码的时候，在linux下面却无法打开，主要的原因是这个压缩包有29G之多，为了方便网络传输，特意被打包分卷上传到了百度云，我下载之后拿到手里的是差不多31个单独的分卷文件。</p>
+<p>在linux下面，我解压的时候直接提示错误，提示的问题是不识别这个文件是zip文件。</p>
+<p>百度一番之后发现是因为分卷之后每个卷的数据被拆分了，单独解压每一个卷是不行的，必须下把分卷合并起来。合并的命令也很简单，cat命令。</p>
+<p>每个卷的名字大概的样子是androidcode.zip.001 …….androidcode.zip.031这样的一个文件序列，果断使用通配符进行合并</p>
+<pre class=" language-powershell"><code class="language-powershell"><span class="token function">cat</span> androidcode<span class="token punctuation">.</span>zip<span class="token punctuation">.</span><span class="token operator">*</span> > androidcode<span class="token punctuation">.</span>zip</code></pre>
+<p>经过几分钟的等待，这个文件合并完成，我们拿到了androidcode.zip,这回直接可以使用unzip解压缩了。</p>
+<h5 id="2-解压缩源代码的问题"><a href="#2-解压缩源代码的问题" class="headerlink" title="2.解压缩源代码的问题"></a>2.解压缩源代码的问题</h5><p>当解压缩的时候，又出现了新的问题，在解压缩的时候提示文件重名，是否覆盖？可是我这代码里面怎么可能有同名的文件呢？</p>
+<p>经过查找，发现，还真的有，只不过我编译用的分区是使用的Windows的NTFS分区，因为这个机器是一开始配置的Win10系统，但是对我来说完全没用，我就干掉了Win10系统盘，在SSD上面安装了Ubuntu，但是这个机器的普通硬盘还有两个分区，当时懒得管反正linux也能用，就再也没进行分区。我们知道Windows是不区分大小写的，但是Ext4分区是区分大小写的。这就导致了我们在解压缩文件的时候，同一个文件夹下面有大小写不同的两个文件，可是解压到NTFS分区的时候就变成同一个文件了，提示覆盖。问题原因找到了，那就动手把里面的数据复制到另外的磁盘，格式化分区为EXT4，然后再次解压缩，完美！！！</p>
+<h5 id="3-编译系统源代码前的准备工作"><a href="#3-编译系统源代码前的准备工作" class="headerlink" title="3.编译系统源代码前的准备工作"></a>3.编译系统源代码前的准备工作</h5><pre class=" language-shell"><code class="language-shell">#先安装openjdk,安装jdk8就可以了，其他版本最好不要使用
+sudo apt-get install openjdk-8-jdk
+#下面是安装编译所必须的库，这些库是有些名字可能有写出入，主要是开发库版本可能有变
+sudo apt-get install libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-dev git flex bison gperf build-essential libncurses5-dev:i386 tofrodos python-markdown xsltproc zlib1g-dev:i386 dpkg-dev libsdl1.2-dev libesd0-dev zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev libxml2-utils unzip m4</code></pre>
+<pre class=" language-shell"><code class="language-shell">#进入Android源代码目录，然后开始我们的编译过程
+source build/envsetup.sh
+lunch msm8909-userdebug 
+make -j8</code></pre>
+<p>刚编译没超过5分钟，立刻出现问题了</p>
+<pre class=" language-shell"><code class="language-shell"> ninja: build stopped: subcommand failed ninja failed with: exit status 1</code></pre>
+<p>看到这个问题，我也是百度google了一大圈，依然有问题，最后发现只要执行一下下面的命令就可以解决问题了,LC_ALL=C 是为了去除所有本地化的设置，让命令能正确执行。</p>
+<pre class=" language-shell"><code class="language-shell">export LC_ALL=C</code></pre>
+<p>经过一个多小时的编译，顺利完成。</p>
+<p>目前来看编译的问题不多，主要是一些前期准备工作太多坑。</p>
 
             </div>
             <hr/>
@@ -486,7 +487,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zhanweisun.github.io/2019/12/29/get-app-list/">http://zhanweisun.github.io/2019/12/29/get-app-list/</a>
+                    <a href="http://zhanweisun.github.io/2020/02/29/zai-ubuntu-xia-mian-jie-ya-suo-fen-juan-de-android-xi-tong-yuan-dai-ma/">http://zhanweisun.github.io/2020/02/29/zai-ubuntu-xia-mian-jie-ya-suo-fen-juan-de-android-xi-tong-yuan-dai-ma/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -523,19 +524,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/android/">
-                                    <span class="chip bg-color">android</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%BA%94%E7%94%A8%E5%88%97%E8%A1%A8/">
-                                    <span class="chip bg-color">应用列表</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%9D%83%E9%99%90/">
-                                    <span class="chip bg-color">权限</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -699,32 +688,38 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/01/08/say-hello-to-x86-64-assembly-part-1/">
+                <a href="/2020/02/29/zai-ubuntu-xia-mian-jie-ya-suo-fen-juan-de-android-xi-tong-yuan-dai-ma/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Say hello to x86_64 Assembly [part 1]">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="在Ubuntu下面解压缩分卷的Android系统源代码">
                         
-                        <span class="card-title">Say hello to x86_64 Assembly [part 1]</span>
+                        <span class="card-title">在Ubuntu下面解压缩分卷的Android系统源代码</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            翻译原文地址
-Say hello to x86_64 Assembly [part 1]介绍Introduction
-我们中间有很多开发者，我们每天写了成千上万行代码。有时候甚至是一些不错的代码：）我们每个人都能写出像下面这样的简单代码：
+                            
+title: 在Ubuntu下面解压缩分卷的Android系统源代码并编译date: 2020-02-29 21:10:11tags: 
 
+android
+zip压缩分卷
+系统源代码
+
+
+在Ubuntu下面解压缩分卷的Android系统源
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -733,26 +728,7 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/x86/">
-                        <span class="chip bg-color">x86</span>
-                    </a>
-                    
-                    <a href="/tags/x64/">
-                        <span class="chip bg-color">x64</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%B1%87%E7%BC%96/">
-                        <span class="chip bg-color">汇编</span>
-                    </a>
-                    
-                    <a href="/tags/assembly/">
-                        <span class="chip bg-color">assembly</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -763,24 +739,33 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/12/28/dex-wen-jian-jie-gou-yu-jie-xi/">
+                <a href="/2020/02/29/shi-yong-ndk-chuang-jian-android-xi-tong-nei-de-ke-zhi-xing-cheng-xu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="DEX文件结构与解析">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="使用ndk创建Android系统内的可执行程序">
                         
-                        <span class="card-title">DEX文件结构与解析</span>
+                        <span class="card-title">使用ndk创建Android系统内的可执行程序</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            DEX文件结构与解析Dex是Dalvik虚拟机的执行文件，对于每一个开发者来说，他的结构对于开发这至关重要，也是我们优化的一个方面，虽然很多工作是Android Stuido和其对应的工具进行的，但是我们需要知道他的基础结构和工作原理.由于
+                            
+title: 使用ndk创建Android系统内的可执行程序date: 2020-02-29 21:08:20tags: 
+
+android
+linux可执行文件
+arm
+C语言
+
+
+使用ndk创建Android系统内的可执行程序我们在用
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-29
                             </span>
                         <span class="publish-author">
                             
@@ -789,26 +774,6 @@ Say hello to x86_64 Assembly [part 1]介绍Introduction
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Dex/">
-                        <span class="chip bg-color">Dex</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">文件结构</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/">
-                        <span class="chip bg-color">二进制</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%A7%A3%E6%9E%90/">
-                        <span class="chip bg-color">解析</span>
-                    </a>
-                    
                 </div>
                 
             </div>
