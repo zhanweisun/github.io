@@ -4,17 +4,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="使用ndk创建Android系统内的可执行程序, 孙老师">
-    <meta name="description" content="
-title: 使用ndk创建Android系统内的可执行程序date: 2020-02-29 21:08:20tags: 
+    <meta name="keywords" content="ARM汇编学习(一), 孙老师">
+    <meta name="description" content="title: ARM汇编学习(一)date: 2020-03-01 17:22:07tags: 
 
-android
-linux可执行文件
-arm
-C语言
+ARM汇编
+寄存器
+指令
 
-
-使用ndk创建Android系统内的可执行程序我们在用">
+ARM汇编学习(一)ARM处理器基础之寻址方式1.寄存器寻址寄存器寻址，简单来说就是把ARM寄存器内的值直接赋给">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +19,7 @@ C语言
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>使用ndk创建Android系统内的可执行程序 | 孙老师</title>
+    <title>ARM汇编学习(一) | 孙老师</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -268,13 +265,13 @@ C语言
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        使用ndk创建Android系统内的可执行程序
+                        ARM汇编学习(一)
                     </div>
                 </div>
             </div>
@@ -404,7 +401,7 @@ C语言
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-29
+                    2020-02-28
                 </div>
                 
 
@@ -415,7 +412,7 @@ C语言
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    14 分
                 </div>
                 
 				
@@ -431,90 +428,343 @@ C语言
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
-<p>title: 使用ndk创建Android系统内的可执行程序<br>date: 2020-02-29 21:08:20<br>tags: </p>
+                <p>title: ARM汇编学习(一)<br>date: 2020-03-01 17:22:07<br>tags: </p>
 <ul>
-<li>android</li>
-<li>linux可执行文件</li>
-<li>arm</li>
-<li>C语言</li>
+<li>ARM汇编</li>
+<li>寄存器</li>
+<li>指令</li>
 </ul>
-<hr>
-<h3 id="使用ndk创建Android系统内的可执行程序"><a href="#使用ndk创建Android系统内的可执行程序" class="headerlink" title="使用ndk创建Android系统内的可执行程序"></a>使用ndk创建Android系统内的可执行程序</h3><p>我们在用ndk的时候大多数是创建的so文件,然后在java层调用.但是今天我们要编写的是直接可以在Android系统上面执行的文件,也就是arm版本的elf文件</p>
-<p>首先新建一个目录</p>
-<p>我们就简单的写一个demo,目录的名字我就叫Calc,因为我们要用c写一个简单的计算器程序.</p>
-<p>然后我们在Calc目录下面在建立一个jni目录</p>
-<p>新建一个文件,Android.mk文件,内容如下</p>
-<pre class=" language-makefile"><code class="language-makefile">LOCAL_PATH <span class="token operator">:=</span> <span class="token variable">$</span><span class="token punctuation">(</span><span class="token keyword">call</span> my-dir<span class="token punctuation">)</span>
-<span class="token keyword">include</span> <span class="token variable">$</span><span class="token punctuation">(</span>CALEAR_VARS<span class="token punctuation">)</span>
-LOCAL_ARM_MODULE <span class="token operator">:=</span> arm
-LOCAL_MODULE <span class="token operator">:=</span>calc
-LOCAL_MODULE_FILENAME <span class="token operator">:=</span> calc
-LOCAL_SRC_FILES <span class="token operator">:=</span> main.c
-<span class="token keyword">include</span> <span class="token variable">$</span><span class="token punctuation">(</span>BUILD_EXECUTABLE<span class="token punctuation">)</span></code></pre>
-<p>新建Application.mk文件,内容如下</p>
-<pre class=" language-makefile"><code class="language-makefile">APP_PLATFORM <span class="token operator">:=</span> android-16
-APP_ALLOW_MISSING_DEPS<span class="token operator">=</span>true</code></pre>
-<p>因为上面的内容都是mk文件的基本设置,这里没什么好说的.</p>
-<p>然后建立我们的main.c文件,内容如下</p>
-<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<h1 id="ARM汇编学习-一"><a href="#ARM汇编学习-一" class="headerlink" title="ARM汇编学习(一)"></a>ARM汇编学习(一)</h1><h2 id="ARM处理器基础之寻址方式"><a href="#ARM处理器基础之寻址方式" class="headerlink" title="ARM处理器基础之寻址方式"></a>ARM处理器基础之寻址方式</h2><h5 id="1-寄存器寻址"><a href="#1-寄存器寻址" class="headerlink" title="1.寄存器寻址"></a>1.寄存器寻址</h5><pre><code>寄存器寻址，简单来说就是把ARM寄存器内的值直接赋给另外一个ARM寄存器，是一种非常常见的寻址方式，有点类似于我们编程中，把变量A的值直接赋给B的操作。
+var B=A;
 
-<span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> x <span class="token operator">+</span> y<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+例子如下
+MOV  R1,R2  ;把寄存器R2里面的值赋值个R1
+SUB  R0,R1,R2 ;使用寄存器R1减去R2 结果赋值给R0寄存器</code></pre><h5 id="2-立即寻址"><a href="#2-立即寻址" class="headerlink" title="2.立即寻址"></a>2.立即寻址</h5><pre><code>立即寻址就是直接把值赋给对应的变量（寄存器）,这和我们C语言里面给变量赋一个具体的数值很像
+var A = 10;
 
-<span class="token keyword">int</span> <span class="token function">sub</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> x <span class="token operator">-</span> y<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+例子如下
+SUBS R0,R0,#1 ;R0-1 -&gt; R0 寄存器R0-1的值保存到R0中</code></pre><h5 id="3-寄存器偏移寻址"><a href="#3-寄存器偏移寻址" class="headerlink" title="3.寄存器偏移寻址"></a>3.寄存器偏移寻址</h5><pre><code>寄存器偏移寻址是ARM指令集特有的寻址方式，当第二个操作数是寄存器偏移方式时,第二个寄存器操作数在与第一个操作数结合之前，选择进行位移操作
+这样的操作其实类似于我们在C语言里面，先把变量进行位移操作,然后再赋值给其他
+var A= B&gt;&gt;1;
 
-<span class="token keyword">int</span> <span class="token function">mul</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> x <span class="token operator">*</span> y<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+例子如下
+MOV R0,R2,LSL #3  ;R2的值左移3位，结果放入R0，即R0=R2*8
+ANDS R1,R1,R2,LSL R3  ;R2的值左移3位，然后和R1相与操作，结果放入R1</code></pre><pre><code>寄存器寻址可以使用的位移操作符如下
+LSL:逻辑左移，寄存器中低端空出的位置补0
+LSR:逻辑右移，寄存器中高端空出的位置补0
+ASR:算数右移，位移过程中，符号位保持不变，如果源操作数为正数，则高位空出补0，否则补1
+ROR:循环右移，由字的低端移出的位填入字的高端空位
+RRX:带扩展的循环右移，操作数右移一位，高端空出的位用原C标志值填充</code></pre><p><img src="https://zhanweisun.github.io/image/%E4%BD%8D%E7%A7%BB%E6%93%8D%E4%BD%9C%E5%9B%BE.png" alt="位移操作图"></p>
+<h5 id="4-寄存器间接寻址"><a href="#4-寄存器间接寻址" class="headerlink" title="4,寄存器间接寻址"></a>4,寄存器间接寻址</h5><pre><code>这种寻址方式，就是取第二个参数寄存器编号里面的值，然后赋值给第一个寄存器
+类似于C语言中的
+var a=*b;
 
-<span class="token keyword">int</span> <span class="token function">div</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> x <span class="token operator">/</span> y<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+例子程序
+LDR R1,[R2]  ;将R2中的数值作为地址，去除此地址中的数据保存在R1中
+SWP R1,R1,[R2] ;将R2中的数值作为地址，取出此地址中的数值与R1中的值交换</code></pre><h5 id="5-基址寻址"><a href="#5-基址寻址" class="headerlink" title="5.基址寻址"></a>5.基址寻址</h5><pre><code>将基址寄存器的内容与指令中给出的偏移量相加，获取到有效的地址，一般情况，基址寻址用于访问基址附近的存贮单元，经常用于查表，数组操作等。
+此操作类似于寄存器寻址，只是额外会再加上一个偏移地址
 
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> num<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> rel <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> result <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">do</span> <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入第一个操作数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请选择[ 1.+ 2.- 3.* 4./] :"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"请输入第二个操作数: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">switch</span> <span class="token punctuation">(</span>num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">case</span> <span class="token number">1</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-                rel <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-            <span class="token keyword">case</span> <span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-                rel <span class="token operator">=</span> <span class="token function">sub</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-            <span class="token keyword">case</span> <span class="token number">3</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-                rel <span class="token operator">=</span> <span class="token function">mul</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-            <span class="token keyword">case</span> <span class="token number">4</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-                rel <span class="token operator">=</span> <span class="token function">div</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">break</span><span class="token punctuation">;</span>
-            <span class="token keyword">default</span><span class="token punctuation">:</span><span class="token punctuation">{</span>
-                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"错误的操作"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"结果:%d \n"</span><span class="token punctuation">,</span>rel<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"是否继续: [0.退出 1.继续]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>建立好以后,我们退回到Calc目录下面,执行ndk-build,这样就可以构建出我们想要的执行文件,对应的文件会在各个平台对应的文件夹内生成</p>
+例子程序
+LDR R2,[R3,#0x0F] ;将R3中的数值加0x0F作为地址，去除地址的数值保存到R2中</code></pre><h5 id="6-多寄存器寻址"><a href="#6-多寄存器寻址" class="headerlink" title="6.多寄存器寻址"></a>6.多寄存器寻址</h5><pre><code>多寄存器寻址就是一次可以传送几个几寄存器的值，允许一条指令传送16个寄存器的任何子集或者所有寄存器
+
+例子程序
+LDMIA R1!,{R2-R7,R12} ;将R1短语中的数据读出到R2-R7，R12，R1自动加1
+STMIA R0!,{R3-R6,R10} ;将R3-R6，R10中的数据保存到R0指向的地址，R0自动加1</code></pre><h5 id="7-堆栈寻址"><a href="#7-堆栈寻址" class="headerlink" title="7.堆栈寻址"></a>7.堆栈寻址</h5><pre><code>堆栈寻址使用专门的寄存器，堆栈指针指向一块存储区域，指针指向的存储单元就是堆栈顶端，存储器堆栈分为两种，
+
+向上生长：向高地址方向生长，称之为递增堆栈
+
+向下生长：向低地址方向生长，称之为递减堆栈
+
+堆栈指针指向最后压入的堆栈的有效数据项，成为满堆栈，堆栈指针指向下一个要放入的空位置，成为空堆栈，这样就有4种类型的堆栈表示递增和递减的满堆栈和空堆栈</code></pre><pre><code>满递增:堆栈通过增大存储器的地址向上增长，堆栈指针指向内含有效数据项的最高地址。例如指令 LDMFA，STMFA等.</code></pre><pre><code>空递增:堆栈通过增大存储器的地址向上增长，堆栈指针指向堆栈上的第一个空位置，例如指令 LDMEA,STMFA等.</code></pre><pre><code>满递减:堆栈通过减小存储器的地址向下增长，堆栈指针指向内含有效数据项的最低地址。例如指令 LDMFD，STMFD等.</code></pre><pre><code>空递减:堆栈通过减小存储器的地址向下增长，堆栈指针指向堆栈下的第一个空位置。例如指令 LDMFD，STMFD等.</code></pre><p>STMFD  SP!,{R1-R7,LR} ;将R1-R7，LR入栈，满递减堆栈</p>
+<h5 id="8-块拷贝寻址"><a href="#8-块拷贝寻址" class="headerlink" title="8.块拷贝寻址"></a>8.块拷贝寻址</h5><pre><code>多寄存器传送指令用于一块数据从存储器的某一位置拷贝到另一位置。
+有点类似多寄存器寻址
+例子代码
+STMIA  R0!,{R1,R7} ;将R1-R7的数据保存到存储器，存储器地址保存在R0中，R0递增</code></pre><h5 id="9-相对寻址"><a href="#9-相对寻址" class="headerlink" title="9.相对寻址"></a>9.相对寻址</h5><pre><code>相对寻址是基址寻址的另外一个变种，有程序计数器PC提供基准地址，指令中的地址码字段作为偏移量，两者相加后得到有效地址
+例子代码
+BL ROUTE1  ;调用到ROUTE1子程序
+BEQ LOOP  ；条件跳转指令</code></pre><h2 id="ARM指令集"><a href="#ARM指令集" class="headerlink" title="ARM指令集"></a>ARM指令集</h2><h5 id="1-条件码"><a href="#1-条件码" class="headerlink" title="1.条件码"></a>1.条件码</h5><table>
+<thead>
+<tr>
+<th>条件码助记符</th>
+<th>影响标志位</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EQ</td>
+<td>Z==1</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>NE</td>
+<td>Z==0</td>
+<td>不相等</td>
+</tr>
+<tr>
+<td>CS/HS</td>
+<td>C=1</td>
+<td>无符号数大于或等于</td>
+</tr>
+<tr>
+<td>CC/L0</td>
+<td>C=0</td>
+<td>无符号数小于</td>
+</tr>
+<tr>
+<td>MI</td>
+<td>N=1</td>
+<td>负数</td>
+</tr>
+<tr>
+<td>PL</td>
+<td>N=0</td>
+<td>正数或零</td>
+</tr>
+<tr>
+<td>VS</td>
+<td>V=1</td>
+<td>溢出</td>
+</tr>
+<tr>
+<td>VC</td>
+<td>V=0</td>
+<td>没有溢出</td>
+</tr>
+<tr>
+<td>HI</td>
+<td>C=1,Z=0</td>
+<td>无符号数大于</td>
+</tr>
+<tr>
+<td>LS</td>
+<td>C=0,Z=1</td>
+<td>无符号书小于或等于</td>
+</tr>
+<tr>
+<td>GE</td>
+<td>N=V</td>
+<td>有符号数大于或等于</td>
+</tr>
+<tr>
+<td>LT</td>
+<td>N!=V</td>
+<td>有符号数小于</td>
+</tr>
+<tr>
+<td>GT</td>
+<td>Z=0,N=V</td>
+<td>有符号数大于</td>
+</tr>
+<tr>
+<td>LE</td>
+<td>Z=1,N!=V</td>
+<td>有符号数小于或等于</td>
+</tr>
+<tr>
+<td>AL</td>
+<td>Any</td>
+<td>无条件执行</td>
+</tr>
+</tbody></table>
+<pre><code>条件码应用举例
+C语言代码
+if (a&gt;b)
+{
+  a++;
+}
+else
+{
+  b++;
+}
+对应的ARM指令,其中R0为a,R1为b
+CMP      R0, R1        ;R0与R1比较
+ADDHI    R0, R0, #1    ;如果R0&gt;R1,R0=R0+1
+ADDLS    R1, R1, #1    ;否则R0&lt;R1,R1=R1+1
+
+if ((a!=10)&amp;&amp;(b!=20))
+{
+      a=a+b;
+}
+对应ARM指令,其中R0为a,R1为b
+CMP    R0,#10    ;比较R0是否为10
+CMPNE  R1,#20    ;如果R0不为10,则比较R1是否为20
+ADDNE  R0,R0,R1  ;如果R0不为10,并且R1不为20,指令执行R0=R0+R1</code></pre><h5 id="2-存储器访问指令"><a href="#2-存储器访问指令" class="headerlink" title="2.存储器访问指令"></a>2.存储器访问指令</h5><table>
+<thead>
+<tr>
+<th>助记符</th>
+<th>说明</th>
+<th>操作</th>
+<th>条件码位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LDR  Rd,addressing</td>
+<td>加载字数据</td>
+<td>Rd&lt;-[addressing],addressing 索引</td>
+<td>LDR {cond}</td>
+</tr>
+<tr>
+<td>LDRB  Rd,addressing</td>
+<td>加载无符号字节数据</td>
+<td>Rd&lt;-[addressing],addressing 索引</td>
+<td>LDR {cond} B</td>
+</tr>
+<tr>
+<td>LDRT  Rd,addressing</td>
+<td>以用户模式加载字数据</td>
+<td>Rd&lt;-[addressing],addressing 索引</td>
+<td>LDR {cond} T</td>
+</tr>
+<tr>
+<td>LDRBT  Rd,addressing</td>
+<td>以用户模式加载无符号字数据</td>
+<td>Rd&lt;-[addressing],addressing 索引</td>
+<td>LDR {cond} BT</td>
+</tr>
+<tr>
+<td>LDRH  Rd,addressing</td>
+<td>加载无符号半字数据</td>
+<td>Rd&lt;-[addressing],addressing 索引</td>
+<td>LDR {cond} H</td>
+</tr>
+<tr>
+<td>LDRSB  Rd,addressing</td>
+<td>加载有符字节数据</td>
+<td>Rd&lt;-[addressing],addressing 索引</td>
+<td>LDR {cond} SB</td>
+</tr>
+<tr>
+<td>LDRSH  Rd,addressing</td>
+<td>STRH Rd,addressing</td>
+<td>Rd&lt;-[addressing],addressing 索引</td>
+<td>LDR {cond} SH</td>
+</tr>
+<tr>
+<td>STR Rd,addressing</td>
+<td>存储字数据</td>
+<td>[addressing]&lt;-Rd,addressing 索引</td>
+<td>STR {cond}</td>
+</tr>
+<tr>
+<td>STRB  Rd,addressing</td>
+<td>存储字节数据</td>
+<td>[addressing]&lt;-Rd,addressing 索引</td>
+<td>STR {cond} B</td>
+</tr>
+<tr>
+<td>STRT Rd,addressing</td>
+<td>以用户模式存储字数据</td>
+<td>[addressing]&lt;-Rd,addressing 索引</td>
+<td>STR {cond} T</td>
+</tr>
+<tr>
+<td>STRBT Rd,addressing</td>
+<td>以用户模式存储字节数据</td>
+<td>[addressing]&lt;-Rd,addressing 索引</td>
+<td>STR {cond} BT</td>
+</tr>
+<tr>
+<td>STRH Rd,addressing</td>
+<td>存储半字数据</td>
+<td>[addressing]&lt;-Rd,addressing 索引</td>
+<td>STR {cond} H</td>
+</tr>
+<tr>
+<td>LDM {mode} Rn{!},reglist</td>
+<td>批量(寄存器)加载</td>
+<td>reglist &lt;- [Rn … ], Rn 回存等</td>
+<td>LDM {cond} {more}</td>
+</tr>
+<tr>
+<td>STM {mode} Rn{!},reglist</td>
+<td>批量(寄存器)存储</td>
+<td>[Rn … ] &lt;- reglist, Rn 回存等</td>
+<td>STM {cond} {more}</td>
+</tr>
+<tr>
+<td>SWP  Rd,Rm,Rn</td>
+<td>寄存器和存储器字数据交换</td>
+<td>Rd&lt;-[Rd],[Rn]&lt;-[Rm] (Rn &lt;&gt; Rd或Rm)</td>
+<td>SWP {cond}</td>
+</tr>
+<tr>
+<td>SWPB Rd,Rm,Rn</td>
+<td>寄存器和存储器字节数据交换</td>
+<td>Rd&lt;-[Rd],[Rn]&lt;-[Rm] (Rn &lt;&gt; Rd或Rm)</td>
+<td>SWP {cond} B</td>
+</tr>
+</tbody></table>
+<h6 id="LDR和STR"><a href="#LDR和STR" class="headerlink" title="LDR和STR"></a>LDR和STR</h6><pre><code>加载/存储无符号字节指令,使用单一数据传送指令STR和LDR来存储和加载数据
+指令格式如下
+LDR {cond} {T}  Rd,&lt;address&gt;;加载指定地址上的数据(字),放入Rd中
+STR {cond} {T}  Rd,&lt;address&gt;;存储数据(字)到指定地址的存储单元,要存储的数据在Rd中
+LDR {cond}B {T}  Rd,&lt;address&gt;;加载字节数据,放入Rd中,既Rd最低字节有效,高24位清零
+STR {cond}B {T}  Rd,&lt;address&gt;;存储字节数据,要存储的数据在Rd中,最低字节有效
+其中T为可选后缀,若指令中带有T,那么即使处理器是在特权模式下,存储系统也将访问看成是处理器在用户模式下</code></pre><pre><code>立即数
+立即数可以是个无符号数值,这个数据可以加到基址寄存器,也可以从基址寄存器中减去这个数值,指令举例如下:
+LDR R1,[R0,#0x12]; 将R0+0x12地址处的数据独处,保存到R1中,R0的值不变
+LDR R1,[R0] ;将R0地址处的数据读出,保存到R1中,0地址偏移</code></pre><pre><code>寄存器
+寄存器内的数值可以加到基址寄存器,也可以从基址寄存器中减去这个数值,指令举例如下:
+LDR R1,[R0,R2] ;将R0+R2地址的数据读出,保存到R1中(R0值不变)
+LDR R1,[R0,-R2];将R0-R2的地址处的数据读出,保存到R1中,(R0值不变)</code></pre><pre><code>寄存器及位移常数
+寄存器移位后的值可以加到基址寄存器,也可以从基址寄存器中减去这个数值,指令举例如下:
+LDR R1,[R0,R2,LSL #2]  ;将R0+R2*4(R2左移2位)的地址保存到R1中
+LDR R1,[R0,-R2,LSL #2] ;将R0-R2*4(R2左移2位)的地址保存到R1中
+寻址方式的地址计算方法分为加载/存储指令等4种形式
+1.零偏移
+Rn的值作为传送数据的地址,既偏移地址为0
+LDR Rd,[Rn]
+2.前索引偏移
+在数据传送前,将偏移量加到Rn中,其结果作为传送数据的存储地址,若使用后缀!,则结果回写到Rn中,且Rn的值不允许为R15,指令举例如下:
+LDR Rd,[Rn,#0x04]!
+LDR Rd,[Rn,#-0x04]
+3.程序相对偏移
+程序相对偏移是索引行驶的另外一个版本,汇编器由PC寄存器计算偏移量,并将PC寄存器作为Rn生成前索引指令,不能使用后缀&quot;!&quot;,指令举例如下:
+LDR Rd,label ;label 为程序标号,label必须是当前指令的正负4K范围内
+4.后索引偏移
+Rn的值用作传送数据的存储地址,在数据传送后,将偏移量与Rn想家结果回写到Rn中,Rn不允许是R15,指令举例如下:
+LDR Rd,[Rn],#0x04
+地址对准,大多数情况下,必须保证用于32位传送的地址是32位对准的.
+加载/存储字和无符号字节紫菱举例如下:
+LDR R2,[R5]        ;加载R5对应的地址上的数据到R2中
+STR R1,[R0,#0x04]  ;将R1中的数据保存到地址R0+0x04对应的存储单元中,R0不变
+LDRB R3,[R2],#1    ;读取R2地址上的1字节数据并保存到R3中,R3=R2+1
+STRB R6,[R7]       ;读取R6的数据保存到R7指定的地址中,值存储一个字节
+
+加载/存储半字和带符号字节,这类LDR/STR指令可能加载带符号数据,偏移量格式,寻址方式与上面相同,具体指令如下:
+LDR{cond}SB Rd,&lt;address&gt;  ;加载指定地址上的数据(带符号字节),放入Rd中
+LDR{cond}SH Rd,&lt;address&gt;  ;加载指定地址上的数据(带符号字节),放入Rd中
+LDR{cond}H Rd,&lt;address&gt;   ;加载半字数据,放入Rd中,既Rd最低的16位有效,高16位清零
+STR{cond}H Rd,&lt;address&gt;   ;存储半字数据,要存储的数据在Rd,最低16位有效
+说明:带符号位的半字,字加载是指带符号位加载扩展到32位;无符号位半字加载是指令扩展到32位.
+地址对准:对半字传输的地址必须为偶数,非半字对准的半字加载将使Rd内容不可靠,非半字对准的半字存储将使指定的2字节存储内容不可靠
+加载/存储半字和带符号字节指令举例如下:
+LDRSB R1 [R0,R3]   ;将R0+R3地址傻姑娘的字节数据读取到R1,高24位用符号位扩展
+LDRSH R1,[R9]      ;将R9地址上的半字数据读出到R1,高16位用符号位扩展
+LDRH  R6,[R2],#2   ;将R2地址的半字数据读出到R6,高16位用零扩展
+SHRH  R1,[R0,#2]!  ;将R1的数据存储到R0+2的地址中,只存储低位的2个字节数据R0=R0+2(R0的值增加2)
+LDR/STR指令用于对内存变量的访问,内存缓冲区数据访问,查表,外围部件的控制操作等.</code></pre><h6 id="LDM和STM"><a href="#LDM和STM" class="headerlink" title="LDM和STM"></a>LDM和STM</h6><pre><code>批量加载/存储指令可以实现一组寄存器和一块连续的内存单元之间的传输数据,LDM为加载多个寄存器,STM为存储多个寄存器,允许一条指令传送16个寄存器的任何子集或者所有寄存器,指令格式如下:
+LDM{cond}&lt;模式&gt; Rn{!},reglist{^}
+STM{cond}&lt;模式&gt; Rn{!},reglist{^}
+其中可使用的模式如下:
+1.IA:每次传送后地址加4
+2.IB:每次传送前地址加4
+3.DA:每次传送后地址减4
+4.DB:每次传送前地址减4
+5.FD:满递减堆栈
+6.ED:空递增堆栈
+7.FA:满递增堆栈
+8.EA:空递增堆栈
+其中Rn为基址寄存器,Rn不允许为R15,后缀!表示最后的地址歇会到Rn中,寄存器列表reglist可包含多于一个寄存器或者寄存器范围.使用,分开,如{R1,R2,R6-R9},寄存器排列由小到大排列.&quot;^&quot;后缀不允许在用户模式
+
+举例如下:
+LDMIA R0!,{R3-R9}    ;加载R0指向的地址上的多字数据,保存到R3-R9中,R0值更新
+STMIA R1!,{R3-R9}    ;将R3-R9的数据存储到R1只想的地址上,R1值更新
+STMfD SP!,{R0-R7,LR} ;保存现场,将R0-R7,LR入栈
+LDMFD SP!,{R0-R7,PC} ;恢复现场,异常处理返回</code></pre><p><img src="https://zhanweisun.github.io/image/STMDA.png" alt="STMDA"></p>
+<p><img src="https://zhanweisun.github.io/image/STMDB.png" alt="STMDB"></p>
+<p><img src="https://zhanweisun.github.io/image/STMIA.png" alt="STMIA"></p>
+<p><img src="https://zhanweisun.github.io/image/STMIB.png" alt="STMIB"></p>
 
             </div>
             <hr/>
@@ -540,7 +790,7 @@ APP_ALLOW_MISSING_DEPS<span class="token operator">=</span>true</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zhanweisun.github.io/2020/02/29/shi-yong-ndk-chuang-jian-android-xi-tong-nei-de-ke-zhi-xing-cheng-xu/">http://zhanweisun.github.io/2020/02/29/shi-yong-ndk-chuang-jian-android-xi-tong-nei-de-ke-zhi-xing-cheng-xu/</a>
+                    <a href="http://zhanweisun.github.io/2020/02/28/arm-hui-bian-xue-xi-yi/">http://zhanweisun.github.io/2020/02/28/arm-hui-bian-xue-xi-yi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -745,27 +995,28 @@ APP_ALLOW_MISSING_DEPS<span class="token operator">=</span>true</code></pre>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/02/29/zai-ubuntu-xia-mian-jie-ya-suo-fen-juan-de-android-xi-tong-yuan-dai-ma/">
+                <a href="/2020/02/29/shi-yong-ndk-chuang-jian-android-xi-tong-nei-de-ke-zhi-xing-cheng-xu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="在Ubuntu下面解压缩分卷的Android系统源代码">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="使用ndk创建Android系统内的可执行程序">
                         
-                        <span class="card-title">在Ubuntu下面解压缩分卷的Android系统源代码</span>
+                        <span class="card-title">使用ndk创建Android系统内的可执行程序</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
-title: 在Ubuntu下面解压缩分卷的Android系统源代码并编译date: 2020-02-29 21:10:11tags: 
+title: 使用ndk创建Android系统内的可执行程序date: 2020-02-29 21:08:20tags: 
 
 android
-zip压缩分卷
-系统源代码
+linux可执行文件
+arm
+C语言
 
 
-在Ubuntu下面解压缩分卷的Android系统源
+使用ndk创建Android系统内的可执行程序我们在用
                         
                     </div>
                     <div class="publish-info">
@@ -790,30 +1041,25 @@ zip压缩分卷
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/28/arm-hui-bian-xue-xi-yi/">
+                <a href="/2020/02/12/android-mian-shi-zhi-handler-xiang-guan-xue-xi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="ARM汇编学习(一)">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Android面试之Handler相关学习">
                         
-                        <span class="card-title">ARM汇编学习(一)</span>
+                        <span class="card-title">Android面试之Handler相关学习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            title: ARM汇编学习(一)date: 2020-03-01 17:22:07tags: 
-
-ARM汇编
-寄存器
-指令
-
-ARM汇编学习(一)ARM处理器基础之寻址方式1.寄存器寻址寄存器寻址，简单来说就是把ARM寄存器内的值直接赋给
+                            ###Android面试之Handler相关学习
+1.Android消息机制之Looper.java源代码学习1). 准备阶段,在子线程中调用Looper.prepare()方法或者在主线程调用Looper.prepareMainLoope
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-12
                             </span>
                         <span class="publish-author">
                             
@@ -822,6 +1068,30 @@ ARM汇编学习(一)ARM处理器基础之寻址方式1.寄存器寻址寄存器�
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/android/">
+                        <span class="chip bg-color">android</span>
+                    </a>
+                    
+                    <a href="/tags/Handler/">
+                        <span class="chip bg-color">Handler</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                        <span class="chip bg-color">面试题</span>
+                    </a>
+                    
+                    <a href="/tags/Looper/">
+                        <span class="chip bg-color">Looper</span>
+                    </a>
+                    
+                    <a href="/tags/MessageQueue/">
+                        <span class="chip bg-color">MessageQueue</span>
+                    </a>
+                    
                 </div>
                 
             </div>
