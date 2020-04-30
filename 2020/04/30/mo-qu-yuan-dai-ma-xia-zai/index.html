@@ -4,16 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="在Ubuntu下面解压缩分卷的Android系统源代码, 孙老师">
-    <meta name="description" content="
-title: 在Ubuntu下面解压缩分卷的Android系统源代码并编译date: 2020-02-29 21:10:11tags: 
+    <meta name="keywords" content="魔趣源代码下载, 孙老师">
+    <meta name="description" content="title:魔趣系统源代码下载date: 2020-04-30 147:07:27tags: 
 
-android
-zip压缩分卷
-系统源代码
+Android
+系统
+源代码
+编译
 
-
-在Ubuntu下面解压缩分卷的Android系统源">
+魔趣源代码下载搞魔趣源代码原因最近一直在研究干掉钉钉之类的打卡程序定位什么的,我对hook等方式一直觉得">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +20,7 @@ zip压缩分卷
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>在Ubuntu下面解压缩分卷的Android系统源代码 | 孙老师</title>
+    <title>魔趣源代码下载 | 孙老师</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -267,13 +266,13 @@ zip压缩分卷
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        在Ubuntu下面解压缩分卷的Android系统源代码
+                        魔趣源代码下载
                     </div>
                 </div>
             </div>
@@ -403,7 +402,7 @@ zip压缩分卷
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-02-29
+                    2020-04-30
                 </div>
                 
 
@@ -430,38 +429,38 @@ zip压缩分卷
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <hr>
-<p>title: 在Ubuntu下面解压缩分卷的Android系统源代码并编译<br>date: 2020-02-29 21:10:11<br>tags: </p>
+                <p>title:魔趣系统源代码下载<br>date: 2020-04-30 147:07:27<br>tags: </p>
 <ul>
-<li>android</li>
-<li>zip压缩分卷</li>
-<li>系统源代码</li>
+<li>Android</li>
+<li>系统</li>
+<li>源代码</li>
+<li>编译</li>
 </ul>
-<hr>
-<h3 id="在Ubuntu下面解压缩分卷的Android系统源代码"><a href="#在Ubuntu下面解压缩分卷的Android系统源代码" class="headerlink" title="在Ubuntu下面解压缩分卷的Android系统源代码"></a>在Ubuntu下面解压缩分卷的Android系统源代码</h3><p>最近在翻阅Android系统底层代码，本来打算解压缩到一个ntfs分区，遇到了一些问题，特意记录下来，防止再次犯错</p>
-<h5 id="1-解压缩分卷"><a href="#1-解压缩分卷" class="headerlink" title="1.解压缩分卷"></a>1.解压缩分卷</h5><p>我拿到手里的代码是一个高通8909的系统代码，而且我有对应的硬件，所以研究这个代码，我可以刷机，测试各种我对系统的修改。自然看这份代码比直接查看google的官方代码更有好处。</p>
-<p>但是当我拿到这份代码的时候，在linux下面却无法打开，主要的原因是这个压缩包有29G之多，为了方便网络传输，特意被打包分卷上传到了百度云，我下载之后拿到手里的是差不多31个单独的分卷文件。</p>
-<p>在linux下面，我解压的时候直接提示错误，提示的问题是不识别这个文件是zip文件。</p>
-<p>百度一番之后发现是因为分卷之后每个卷的数据被拆分了，单独解压每一个卷是不行的，必须下把分卷合并起来。合并的命令也很简单，cat命令。</p>
-<p>每个卷的名字大概的样子是androidcode.zip.001 …….androidcode.zip.031这样的一个文件序列，果断使用通配符进行合并</p>
-<pre class=" language-powershell"><code class="language-powershell"><span class="token function">cat</span> androidcode<span class="token punctuation">.</span>zip<span class="token punctuation">.</span><span class="token operator">*</span> > androidcode<span class="token punctuation">.</span>zip</code></pre>
-<p>经过几分钟的等待，这个文件合并完成，我们拿到了androidcode.zip,这回直接可以使用unzip解压缩了。</p>
-<h5 id="2-解压缩源代码的问题"><a href="#2-解压缩源代码的问题" class="headerlink" title="2.解压缩源代码的问题"></a>2.解压缩源代码的问题</h5><p>当解压缩的时候，又出现了新的问题，在解压缩的时候提示文件重名，是否覆盖？可是我这代码里面怎么可能有同名的文件呢？</p>
-<p>经过查找，发现，还真的有，只不过我编译用的分区是使用的Windows的NTFS分区，因为这个机器是一开始配置的Win10系统，但是对我来说完全没用，我就干掉了Win10系统盘，在SSD上面安装了Ubuntu，但是这个机器的普通硬盘还有两个分区，当时懒得管反正linux也能用，就再也没进行分区。我们知道Windows是不区分大小写的，但是Ext4分区是区分大小写的。这就导致了我们在解压缩文件的时候，同一个文件夹下面有大小写不同的两个文件，可是解压到NTFS分区的时候就变成同一个文件了，提示覆盖。问题原因找到了，那就动手把里面的数据复制到另外的磁盘，格式化分区为EXT4，然后再次解压缩，完美！！！</p>
-<h5 id="3-编译系统源代码前的准备工作"><a href="#3-编译系统源代码前的准备工作" class="headerlink" title="3.编译系统源代码前的准备工作"></a>3.编译系统源代码前的准备工作</h5><pre class=" language-shell"><code class="language-shell">#先安装openjdk,安装jdk8就可以了，其他版本最好不要使用
-sudo apt-get install openjdk-8-jdk
-#下面是安装编译所必须的库，这些库是有些名字可能有写出入，主要是开发库版本可能有变
-sudo apt-get install libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-dev git flex bison gperf build-essential libncurses5-dev:i386 tofrodos python-markdown xsltproc zlib1g-dev:i386 dpkg-dev libsdl1.2-dev libesd0-dev zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev libxml2-utils unzip m4</code></pre>
-<pre class=" language-shell"><code class="language-shell">#进入Android源代码目录，然后开始我们的编译过程
-source build/envsetup.sh
-lunch msm8909-userdebug 
-make -j8</code></pre>
-<p>刚编译没超过5分钟，立刻出现问题了</p>
-<pre class=" language-shell"><code class="language-shell"> ninja: build stopped: subcommand failed ninja failed with: exit status 1</code></pre>
-<p>看到这个问题，我也是百度google了一大圈，依然有问题，最后发现只要执行一下下面的命令就可以解决问题了,LC_ALL=C 是为了去除所有本地化的设置，让命令能正确执行。</p>
-<pre class=" language-shell"><code class="language-shell">export LC_ALL=C</code></pre>
-<p>经过一个多小时的编译，顺利完成。</p>
-<p>目前来看编译的问题不多，主要是一些前期准备工作太多坑。</p>
+<h2 id="魔趣源代码下载"><a href="#魔趣源代码下载" class="headerlink" title="魔趣源代码下载"></a>魔趣源代码下载</h2><h5 id="搞魔趣源代码原因"><a href="#搞魔趣源代码原因" class="headerlink" title="搞魔趣源代码原因"></a>搞魔趣源代码原因</h5><pre><code>最近一直在研究干掉钉钉之类的打卡程序定位什么的,我对hook等方式一直觉得不够好,原因是容易被检测出来,所以一直想搞一个有源代码的手机系统.但是无奈我没有pixel系列手机设备,主要是太贵.我手里呢,又只有小米的低端系列红米手机(三部),奈何小米不开源,但是我无意中知道了魔趣这个系统便开始了我的折腾之旅.
+一开始就遇到了无法下载源代码的问题,奈何我不是翻墙党,还不是因为穷.经过研究和摸索,终于让我找到了可以不用翻墙获取源代码的方式.特意记录一下.</code></pre><h3 id="开始我们的源代码下载"><a href="#开始我们的源代码下载" class="headerlink" title="开始我们的源代码下载"></a>开始我们的源代码下载</h3><h5 id="1-先下载repo文件"><a href="#1-先下载repo文件" class="headerlink" title="1.先下载repo文件"></a>1.先下载repo文件</h5><pre><code>https://raw.githubusercontent.com/MoKee/git-repo/stable/repo
+可以使用下载工具,先将魔趣的repo文件下载到本地,也可以用浏览器打开,然后复制页面的所有内容到本地的文本文件内.记得去掉扩展名,保存问repo即可
+然后我们修改repo文件的属性,加入执行权限
+sudo chmod +x repo
+然后留着备用</code></pre><h5 id="2-获取清华git-repo"><a href="#2-获取清华git-repo" class="headerlink" title="2.获取清华git-repo"></a>2.获取清华git-repo</h5><pre><code>我们先要使用git获取一下git-repo仓库内容,这个是在清华,所以直接check
+git clone https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
+下载之后,我们可以得到一个文件夹,git-repo,首先我们把git-repo改名为repo备用</code></pre><h5 id="3-建立源代码文件夹"><a href="#3-建立源代码文件夹" class="headerlink" title="3.建立源代码文件夹"></a>3.建立源代码文件夹</h5><pre><code>新建SourceCode文件夹,把repo文件复制到里面.
+建立.repo文件夹,注意前面有&quot;.&quot;
+然后把我们改名字的repo文件夹,注意是文件夹,复制到.repo目录里面.</code></pre><h5 id="4-初始化repo"><a href="#4-初始化repo" class="headerlink" title="4.初始化repo"></a>4.初始化repo</h5><pre><code>完成上面三步工作以后,我们可以正式的初始化仓库了.我们需要在当前的SourceCode目录内执行如下命令,其中mkp是9.0系统,如果你需要下载10.0,那么找对应的分支就可以了,魔趣官网可查.
+./repo init -u https://github.com/MoKee/android -b mkp
+等待仓库初始化完成.</code></pre><h5 id="5-修改-repo文件夹配置文件"><a href="#5-修改-repo文件夹配置文件" class="headerlink" title="5.修改.repo文件夹配置文件"></a>5.修改.repo文件夹配置文件</h5><pre><code>仓库初始化完成,我们需要进入.repo文件夹内,找到manifest.xml文件,看看它里面的内容是否如下
+&lt;manifest&gt;
+&lt;include name=&quot;default.xml&quot;/&gt;
+&lt;/manifest&gt;
+如果是如下,我们就需要进入..repo/manifests文件夹内,找到default.xml文件并打开它
+&lt;manifest&gt;
+   &lt;remote  name=&quot;aosp&quot;
+-           fetch=&quot;https://android.googlesource.com&quot;
++           fetch=&quot;https://aosp.tuna.tsinghua.edu.cn&quot;
+            review=&quot;android-review.googlesource.com&quot; /&gt;
+   &lt;remote  name=&quot;github&quot;
+找到fetch=&quot;https://android.googlesource.com&quot;,修改为fetch=&quot;https://aosp.tuna.tsinghua.edu.cn&quot;
+这样我们就使用aosp清华源来进行更新了.</code></pre><h5 id="6-下载代码"><a href="#6-下载代码" class="headerlink" title="6.下载代码"></a>6.下载代码</h5><pre><code>接着我们就可以进行代码同步了
+./repo sync</code></pre><h4 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h4><p>经过漫长的等待,源代码就可以下载完成了.如果中途有断线,那就继续执行一下./repo sync,慢慢的同步. 直到代码都下载完成.</p>
 
             </div>
             <hr/>
@@ -487,7 +486,7 @@ make -j8</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zhanweisun.github.io/2020/02/29/zai-ubuntu-xia-mian-jie-ya-suo-fen-juan-de-android-xi-tong-yuan-dai-ma/">http://zhanweisun.github.io/2020/02/29/zai-ubuntu-xia-mian-jie-ya-suo-fen-juan-de-android-xi-tong-yuan-dai-ma/</a>
+                    <a href="http://zhanweisun.github.io/2020/04/30/mo-qu-yuan-dai-ma-xia-zai/">http://zhanweisun.github.io/2020/04/30/mo-qu-yuan-dai-ma-xia-zai/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -688,9 +687,10 @@ make -j8</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/04/30/mo-qu-yuan-dai-ma-xia-zai/">
                     <div class="card-image">
@@ -715,9 +715,9 @@ Android
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -726,6 +726,7 @@ Android
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -736,28 +737,27 @@ Android
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/29/shi-yong-ndk-chuang-jian-android-xi-tong-nei-de-ke-zhi-xing-cheng-xu/">
+                <a href="/2020/02/29/zai-ubuntu-xia-mian-jie-ya-suo-fen-juan-de-android-xi-tong-yuan-dai-ma/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="使用ndk创建Android系统内的可执行程序">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="在Ubuntu下面解压缩分卷的Android系统源代码">
                         
-                        <span class="card-title">使用ndk创建Android系统内的可执行程序</span>
+                        <span class="card-title">在Ubuntu下面解压缩分卷的Android系统源代码</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
-title: 使用ndk创建Android系统内的可执行程序date: 2020-02-29 21:08:20tags: 
+title: 在Ubuntu下面解压缩分卷的Android系统源代码并编译date: 2020-02-29 21:10:11tags: 
 
 android
-linux可执行文件
-arm
-C语言
+zip压缩分卷
+系统源代码
 
 
-使用ndk创建Android系统内的可执行程序我们在用
+在Ubuntu下面解压缩分卷的Android系统源
                         
                     </div>
                     <div class="publish-info">
